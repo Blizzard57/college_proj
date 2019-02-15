@@ -1,14 +1,15 @@
-i=1
-while [ `echo $i` -le `echo $1` ];
+n=$1
+for (( c=1; c<=n; c++ ))
 do
-    notify-send -t 2 "Time Management" "Time to Work !!"
-    sleep 1500
-    if [ `echo $(($i%4))` -eq 0 ]
-    then
-        notify-send -t 2 "Time Management" "Time for a long break"
-        sleep 900
-    else
-        notify-send -t 2 "Time Management" "Time for a short break"
-        sleep 300
-    fi
-done &
+echo "Time to Work !!"
+sleep 1
+if [ `echo $(($c%4))` -eq 0 ]
+then
+	echo "Time for a long break"
+	sleep 3
+else
+	echo "Time for a short break"
+	sleep 1    
+fi
+done 
+
