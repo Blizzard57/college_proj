@@ -17,9 +17,9 @@ then
     clear
     echo Please enter the title of your reminder
     read t
-    echo Please enter the time of your reminder \(In minutes\)
+    echo Please enter the time of your reminder \(24 Hours\)
     read m
-    echo Please enter the frequency of the reminder \(Reminded every $m min\)
+    echo Please enter the frequency of the reminder \(Reminded every day\)
     read h
     for (( c=1; c<=h; c++ ))
     do
