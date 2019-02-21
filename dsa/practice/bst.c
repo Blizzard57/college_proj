@@ -45,14 +45,15 @@ void inorder(struct node *temp){
 }
 
 int main(){
-    enque(50);
-    enque(20);
-    enque(30);
-    enque(60);
-    enque(55);
-    enque(44);
-    enque(23);
-    enque(54);
+    int t,n;
+    printf("Enter n  :");
+    scanf("%d",&n);
+    printf("Enter n numbers :\n");
+    for(int i=0;i<n;i++){
+        scanf("%d",&t);
+        enque(t);
+    }
+    printf("The order is :\n");
     inorder(root);
     return 0;
 }
