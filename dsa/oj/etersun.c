@@ -28,8 +28,6 @@ long long int fun(long long int k, long long int n, long long int arr[]){
             top=0;
         back = push(slide, back, i);
     }
-/////////////////////////////////////////////////////////////////
-
     for( ; i < n-1; i++){
         min0 = hello[slide[top]]; 
         hello[i] = arr[i] + min0;
@@ -60,20 +58,10 @@ long long int fun(long long int k, long long int n, long long int arr[]){
     
     }
 
-///////////////////////////////////////////////////////////////////    
-//for( i=0; i<n; i++){
-  //  printf("%lld\t", slide[i]);
-//}
-        
     min0 = hello[slide[top]];
-  //      printf("min0: %lld \n", min0);
         hello[i] = arr[i] + min0;
 
     long long int ans = hello[n-1];
-//for( i=0; i<n; i++){
- //   printf("%lld\t", hello[i]);
-//}
-
     return ans;
 
 }
