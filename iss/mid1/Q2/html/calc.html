@@ -1,0 +1,39 @@
+<html>
+<head>
+<title> Calculator </title>
+<link rel="stylesheet" type="text/css" href="../css/main.css"> 
+</head>
+<body>
+<table>
+<tr>
+<td><input class="clear-button" type="button" value="C" onclick="clr()"></td>
+<td colspan="3"> <input class="result-box" type="text" value="0"></td>
+</tr>
+<tr>
+<td><input class="numbers" type="button" value="7" onclick="num(7)"></td>
+<td><input class="numbers" type="button" value="8" onclick="num(8)"></td>
+<td><input class="numbers" type="button" value="9" onclick="num(9)"></td>
+<td><input class="operators" type="button" value="+" onclick="fun(+)"></td>
+</tr>
+<tr>
+<td><input class="numbers" type="button" value="4" onclick="num(4)"></td>
+<td><input class="numbers" type="button" value="5" onclick="num(5)"></td>
+<td><input class="numbers" type="button" value="6" onclick="num(6)"></td>
+<td><input class="operators" type="button" value="-" onclick="fun(-)"></td>
+</tr>
+<tr>
+<td><input class="numbers" type="button" value="1" onclick="num(1)"></td>
+<td><input class="numbers" type="button" value="2" onclick="num(2)"></td>
+<td><input class="numbers" type="button" value="3" onclick="num(3)"></td>
+<td><input class="operators" type="button" value="/" onclick="fun(/)"></td>
+</tr>
+<tr>
+<td><input class="numbers" type="button" value="0" onclick="num(0)"></td>
+<td><input class="numbers" type="button" value="." onclick="num(.)"></td>
+<td><input class="equate" type="button" value="=" onclick="equate()"></td>
+<td><input class="operators" type="button" value="*" onclick="fun(*)"></td>
+</tr>
+</table>
+<script src="../js/calc.js"></script>
+</body>
+</html>
