@@ -2,7 +2,8 @@ git pull origin master
 git add .
 if [ $1 == ""]
 then
-    echo Echod
+    git commit -m "Small Changes"
+else
+    git commit -m $1
 fi
-git commit -m "Small Changes"
 git push origin master
