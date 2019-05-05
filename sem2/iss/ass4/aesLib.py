@@ -1,8 +1,7 @@
-from Crypto.Cipher import AES
-import numpy as np
-from Crypto import Random
-from Crypto.Random import get_random_bytes
-from Crypto.Util import Counter
+# Importing libraries
+from Crypto.Cipher import AES # Crypto.Cipher is the one which provides basic AES ancryption to the program
+import numpy as np # Numpy allows modification and editing of the arays generated
+from Crypto.Random import get_random_bytes # Random function allows to generate random keys and IVs required for encryption
 
 def xor(str1,str2):
     ''' Gives the XOR of two hex stings with same length'''
@@ -71,6 +70,8 @@ class aesMeth :
         self.genIV()
 
     # Generate functions
+    # Four different functions used as calling them requires no
+    # argument to be passed and hence can be done much faster
     def genKey(self):
         ''' Generates a random key of the given key size'''
         self.key=get_random_bytes(int(self.keySize/8))
@@ -88,6 +89,8 @@ class aesMeth :
         self.ctr = get_random_bytes(8)
 
     # A single generate function
+    # Given as an option if not wanting to use four different functions
+
     '''
     def gen(self,prop):
         if prop == "Key" :
@@ -101,28 +104,35 @@ class aesMeth :
     '''
 
     # Print functions
+    # Four different functions used as calling them requires no
+    # argument to be passed and hence can be done much faster
     def printKey(self):
         ''' Prints the key in hex form which is readable'''
-        retStr = "Hello"
-        #retStr += str(printReadable(self.key.hex(),8))
-        return "HELLO"
+        retStr = printReadable(self.key.hex(),8)
+        return retStr
 
     def printPt(self):
         ''' Prints the plain text in hex form which is readable'''
         string = self.plaintext.hex()
         length = 8
+        retStr = ""
         for j in range(int(self.textSize/16)):
-            print(' '.join(string[i:i+length] for i in range(32*j,32*(j+1),length)))
+            retStr += (' '.join(string[i:i+length] for i in range(32*j,32*(j+1),length))) + "\n"
+
+        return retStr
 
     def printCtr(self):
         ''' Prints the control in hex form which is readable'''
-        print(printReadable(self.ctr.hex(),8))
+        retStr = printReadable(self.ctr.hex(),8)
+        return retStr
 
     def printIV(self):
         ''' Prints the IV in hex form which is readable'''
-        print(printReadable(self.iv.hex(),8))
+        retStr = printReadable(self.iv.hex(),8)
+        return retStr
 
-    #Single print function
+    # Single print function
+    # Given as an option if not wanting to use four different functions
     '''
     def gen(self,prop):
         if prop == "Key" :
@@ -202,60 +212,3 @@ class aesMeth :
         else :
             # If none of the given methods are entered
             raise ValueError("Enter a proper method : ECB, CBC, OFB or CTR")
-
-print("For ECB Method  :")
-obj1 = aesMeth("ECB",192,96)
-aes_obj = AES.new(obj1.key,AES.MODE_ECB)
-print("Key  :")
-obj1.printKey()
-print()
-print("Plain Text  :")
-obj1.printPt()
-print()
-print(aes_obj.decrypt(obj1.encrypt()) == obj1.plaintext)
-
-print("For CBC Method  :")
-obj1 = aesMeth("CBC",192,96)
-aes_obj = AES.new(obj1.key,AES.MODE_CBC,obj1.iv)
-print("Key  :")
-obj1.printKey()
-print()
-print("Plain Text  :")
-obj1.printPt()
-print()
-print("IV  :")
-obj1.printIV()
-print()
-print(aes_obj.decrypt(obj1.encrypt()) == obj1.plaintext)
-
-print("For OFB method  :")
-new = aesMeth("OFB",128,96)
-print("Key  :")
-new.printKey()
-print()
-print("Plain Text  :")
-new.printPt()
-print()
-print("IV  :")
-new.printIV()
-print()
-ans = new.encrypt().hex()
-print("Encrypted Data  :")
-for i in range(int(len(ans)/32)):
-    print(printReadable(ans[32*i:32*(i+1)],8))
-
-print("For CTR Method  :")
-new = aesMeth("CTR",128,96)
-print("Key  :")
-new.printKey()
-print()
-print("Plain Text  :")
-new.printPt()
-print()
-print("Counter  :")
-new.printCtr()
-ans = new.encrypt().hex()
-print()
-print("Encrypted Data  :")
-for i in range(int(len(ans)/32)):
-    print(printReadable(ans[32*i:32*(i+1)],8))

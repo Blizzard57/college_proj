@@ -1,0 +1,38 @@
+{% include "Header.html" %}
+<div>
+      <h1 class="text-h2-lightblue">AES and Modes of Operation</h1>
+   <h3> Previous Responses</h3><br>
+<table>
+         <thead>
+            <tr>
+               <th nowrap>     Identity    </th>
+               <th nowrap>     Answer 1    </th>
+               <th nowrap>     Answer 2    </th>
+               <th nowrap>     Answer 3    </th>
+               <th nowrap>     Answer 4    </th>
+               <th nowrap>     Answer 5    </th>
+               <th nowrap>     Answer 6    </th>
+               <th nowrap>     Answer 7    </th>
+            </tr>
+         </thead>
+
+         <tbody>
+            {% for student in students %}
+               <tr>
+                  <td>{{ student.id }}</td>
+                  <td>{{ student.A1 }}</td>
+                  <td>{{ student.A2 }}</td>
+                  <td>{{ student.A3 }}</td>
+                  <td>{{ student.A4 }}</td>
+                  <td>{{ student.A5 }}</td>
+                  <td>{{ student.A6 }}</td>
+                  <td>{{ student.A7 }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      </div>
+   </div>
+</div>
+      <a href="{{url_for('introduction')}}">Go back</a>
+{% include "Footer.html" %}

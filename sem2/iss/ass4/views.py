@@ -1,14 +1,15 @@
-from flask import Flask, render_template, jsonify, request
-from reqIss import *
-from Crypto.Cipher import AES
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, jsonify, request #Basic requirement for the python script to work as a flask App
+from aesLib import * #This is where the algorithm required for all the calculations is calculated
+from Crypto.Cipher import AES #For local encryptions
+from flask_sqlalchemy import SQLAlchemy #For the database
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz.db'
-## Having a default object when no object is selected
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Quiz.db'
+## Having a default object when no method is selected in the Experiment
 aes_obj = aesMeth()
 key = 128
 
+#Making a database to store all the answers of the Quiz
 db = SQLAlchemy(app)
 class students(db.Model):
     id = db.Column('student_id', db.Integer, primary_key = True)
@@ -31,6 +32,7 @@ class students(db.Model):
 
 db.create_all()
 
+#Rendering of pages for linking to work
 @app.route("/")
 def introduction():
     return render_template('Introduction.html', topic ='Introduction')
@@ -53,7 +55,7 @@ def objective():
 
 @app.route("/quiz")
 def quiz():
-    return render_template('quiz.html', topic ='Quiz')
+    return render_template('Quiz.html', topic ='Quiz')
 
 @app.route("/feedback")
 def feedback():
@@ -67,7 +69,7 @@ def procedure():
 def further():
     return render_template('Further.html', topic ='Further Readings')
 
-
+#This request allows the object aes_obj to change its mode of operation
 @app.route("/experiment/selectMode", methods=['POST'])
 def selectMode():
     data = request.get_json()
@@ -92,11 +94,10 @@ def selectKey():
     elif data == '256':
         aes_obj.keySize = 256
         key = 256
-    else:
-        print("WTF")
 
 @app.route("/experiment/nextplaintext", methods=['GET'])
 def nextplaintext():
+    #Generates a new plaintext before storing it 
     aes_obj.genPlainText()
 
     info = {
@@ -136,8 +137,8 @@ def nextctr():
 
     return jsonify(info)
 
-@app.route("/experiment/Awer", methods=['GET','POST'])
-def Awer():
+@app.route("/experiment/answer", methods=['GET','POST'])
+def answer():
     data = request.get_json()
     one = str(data.get('one'))
     two = str(data.get('two'))
@@ -214,17 +215,25 @@ def checkAns():
         ret = "False"
     return jsonify(ret)
 
+@app.route("/experiment/showans", methods=['GET'])
+def showans():
+
+    info = {
+        "ans": printReadable(aes_obj.encrypt().hex(),8)
+    }
+
+    return jsonify(info)
+
 @app.route('/quiz', methods = ['GET', 'POST'])
 def new():
    if request.method == 'POST':
          student = students(request.form['A1'], request.form['A2'],
             request.form['A3'], request.form['A4'] , request.form['A5'], request.form['A6'], request.form['A7'])
-
+         print("Answer for first is " + request.form['A1'])
          db.session.add(student)
          db.session.commit()
 
-   return render_template('quiz.html')
-
+   return render_template('Data.html',students = students.query.all())
 
 if __name__ == '__main__':
     app.run(debug = True)

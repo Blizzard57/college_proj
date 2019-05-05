@@ -1,0 +1,33 @@
+{% include "Header.html" %}
+<h1 class="text-h2-lightblue">AES and Modes of Operation</h1><div class="content" id="experiment-article-section-6-content">
+<div class="content" id="experiment-article-section-6-content">
+<form action="{{request.path}}" method="post">
+         <label id ="Q1">1. ECB stands for</label><br>
+         <input type="radio" name="A1" placeholder = "A1" value="1" checked>Electronic cipher Block<br>
+         <input type="radio" name="A1" placeholder = "A1" value="2">Electronic code Block<br>
+         <input type="radio" name="A1" placeholder = "A1" value="3">Electronic code Book<br>
+         <input type="radio" name="A1" placeholder = "A1" value="4">Electronic cipher Book<br>
+         <label id="Q2">2.Which among the following is not CPA secure?</label><br>
+         <input type="radio" id ="A2" name="A2" value="ECB" placeholder = "A2" checked>ECB<br>
+         <input type="radio" id ="A2" name="A2" value="CBC" placeholder = "A2">CBC<br>
+         <input type="radio" id ="A2" name="A2" value="CFB" placeholder = "A2">CFB<br>
+         <input type="radio" id ="A2" name="A2" value="NAN" placeholder = "A2">None<br>
+         <label id="Q3">3.Which of the following are block ciphers?</label><br>
+         <input type="radio" id ="A3" name="A3" value="1" placeholder = "A3" checked>ECB<br>
+         <input type="radio" id ="A3" name="A3" value="2" placeholder = "A3">CBC<br>
+         <input type="radio" id ="A3" name="A3" value="3" placeholder = "A3">CFB<br>
+         <input type="radio" id ="A3" name="A3" value="4" placeholder = "A3">All<br>
+         <label>4.Which is the fastest mode of operation among four mode of operation?</label><br>
+         <input type="text" name="A4" id = "A4" placeholder = "A4" ><br>
+         <label>5.Which mode of operation is more secure? </label><br>
+         <input type="text" name="A5" id= "A5" placeholder = "A5"><br>
+         <label>6.What is importance of Intialiczation Vector(IV) and CTR ? </label><br>
+         <input type="text" name="A6" id = "A6" placeholder = "A6"><br>
+         <label>7.Why ECB is not CPA-secure and Why CBC is CPA-secure?</label><br>
+         <input type="text" name="A7" id = "A7" placeholder = "A7"><br><br> 
+<center><input type = "button" value="Check your Answers" onclick="checkQuiz();">
+<input type = "submit" value = "See others Answers"></center>
+</form></div>						</div>
+					</div>
+			</div>
+{% include "Footer.html" %}

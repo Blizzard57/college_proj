@@ -5,7 +5,7 @@
     <h2>AES (Rijndael) Encryption</h2>
     <h3>PART I</h3>
     <form name="aestest">
-    <p>Choose your mode of operation:
+    <p>Choose your mode of operation: 
         <select id="mode" name="select_mode" onchange="selectMode()" size="1">
             <option selected="selected" value="ecb">Electronic Code Book (ECB)</option>
             <option value="cbc">Cipher Block Chaining (CBC)</option>
@@ -16,7 +16,7 @@
     <hr>
     <h3>PART II</h3>
     <p>
-        <pre>Key size in bits: <select id="keySize" name="keySize" onchange="selectKey()">
+        <pre style="background-color:white; border-color:white">Key Size in bits: <select id="keySize" name="keySize" onchange="selectKey()">
                 <option selected="selected" value="128">128</option>
                 <option value="192">192</option>
                 <option value="256">256</option>
@@ -48,7 +48,7 @@
         <hr>
         <h3>PART III</h3>
         <p>Calculate XOR:
-            <pre>
+            <pre style="background-color:white; border-color:white">   
 	        <textarea cols="50" id="num1" name="num1" rows="1" style="float: left" ></textarea><br>
             <textarea cols="50" id="num2" name="num2" rows="1" style="float: left"></textarea> 
             
@@ -87,11 +87,14 @@
     <hr>
     <h3>PART V</h3>
     <p>Enter your answer here:</p>
-    <p><input id="userans" size="65" type="text"> <input onclick="checkAnswer();" type="button" value="Check Answer!"/></input></p>
+    <p><input id="userans" name="userans" size="65" type="text"><br><br>
+        <textarea cols="65" id="showans" name="showans" readonly="readonly" rows="4"></textarea><br>
+        <input onclick="checkAnswer();" type="button" value="Check Answer!"/></input>
+        <input onclick="showAnswer();" type="button" value="Show Answer!"/></input>
+    </p>
     <div id="notification" style="width: 300px; height: 10px; padding-top: 20px;"></div>
     </div>						
     </div>
 	</div>
 	</div>
-
 {% include "Footer.html" %}

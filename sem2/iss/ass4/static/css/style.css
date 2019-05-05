@@ -8,8 +8,8 @@ Version: 1.0
 */
 
 body {
-    
-    font-family:Calibri !important;
+		font-family:Calibri !important;
+		height: 100%;
 }
 
 p {
@@ -20,29 +20,29 @@ p {
 .content .container-fluid div.calender  { position: relative; }
 
 .container-fluid .calender  table {
-cursor:pointer;
-border:1px solid #ccc;
-font-size: 11px;
-color: #000;
-background: #fff;
-font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	cursor:pointer;
+	border:1px solid #ccc;
+	font-size: 11px;
+	color: #000;
+	background: #fff;
+	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 }
 
 .container-fluid .calender  .button { 
-text-align: center;    
-padding: 2px;          
+	text-align: center;    
+	padding: 2px;          
 }
 
 .container-fluid .calender  .nav {
-background:#f5f5f5;
+	background:#f5f5f5;
 }
 
 .container-fluid .calender  thead .title { 
-font-weight: bold;      
-text-align: center;
-background: #dedede;
-color: #000;
-padding: 2px 0 3px 0;
+	font-weight: bold;      
+	text-align: center;
+	background: #dedede;
+	color: #000;
+	padding: 2px 0 3px 0;
 }
 
 .container-fluid .calender  thead .headrow { 
@@ -102,17 +102,17 @@ background: #666;
 }
 
 .container-fluid .calender  tbody .rowhilite td {
-background: #FFF1AF;
+	background: #FFF1AF;
 }
 
 .container-fluid .calender  tbody .rowhilite td.wn {
-background: #FFF1AF;
+	background: #FFF1AF;
 }
 
 .container-fluid .calender  tbody td.hilite { 
-padding: 1px 1px 1px 1px;
-background:#444 !important;
-color:#fff !important;
+	padding: 1px 1px 1px 1px;
+	background:#444 !important;
+	color:#fff !important;
 }
 
 .container-fluid .calender  tbody td.active { 
@@ -315,10 +315,10 @@ a.active {
 .navbar-inverse {
     border: 0;
 }
-.footer-div
+/*.footer-div
 {
 margin-top:120px;
-}
+}*/
 
 /*******************************************************************************/
 /*****************************CUSTOME STYLE*************************************/
@@ -558,7 +558,7 @@ margin-top:120px;
 	.menu-li
 	{
 		margin-left: 10px;
-		margin-right: 10px;
+		margin-right: 10fpx;
 	}
 	.aboutus-col-8
 	{
@@ -567,8 +567,8 @@ margin-top:120px;
 	.footer-div
 	{
 	background-size: cover !important;
-	position:absolute; bottom:0;
-	 }
+	position:relative; 	 
+	}
 	 
 	 .lab-list-col-10
 	 {
@@ -579,6 +579,12 @@ margin-top:120px;
 	.featured-labs-main-div
 	{
 		margin-top: -35px !important;	
+	}
+	.border-right-green-dotted {
+		border: none !important;
+	}
+	.footer-div {
+		padding-top: 6% !important;
 	}
 }
 
@@ -637,8 +643,8 @@ margin-top:120px;
 .col-md-2-5-1-l
 {
 	width: 100%;
-	  min-height: 228px;
-	  height: 100%;
+	min-height: 228px;
+	height: 100%;
 }
 
 .col-md-2-5-1-withbg
@@ -646,32 +652,21 @@ margin-top:120px;
 	background: url("../images/dotted-devider-h-o.png") no-repeat;
 	background-position: left bottom;
 	width: 100%;
-	  min-height: 228px;
-	  height: 100%;
+	min-height: 228px;
+	height: 100%;
 }
 
 .col-md-2-5-2
 {
-	  padding-right: 15px;
-  padding-left: 15px;
+	padding-right: 15px;
+  	padding-left: 15px;
 }
-/*************************************************************/
 
 .featured-labs-div
 {
 	margin-left: 0px !important;
 	margin-right: 0px !important;
 	padding-left: 15px !important;
-}
-.border-bottom-img
-{
-	 /*  border-bottom: 2px dotted;
-	  border-top : 0px;
-	  border-left: 0px;
-	  border-right: 0px;
-    -webkit-border-image: url(../images/dotted-devider-h-o.png) 30 round; Safari 3.1-5
-    -o-border-image: url(../images/dotted-devider-h-o.png) 30 round; Opera 11-12.1
-    border-image: url(../images/dotted-devider-h-o.png) 30 round; */
 }
 
 .broad-labs-a:HOVER
@@ -690,6 +685,10 @@ margin-top:120px;
 	 margin-top: 30px;
 	 border-right-color: #678f48;
 	 min-height: 115px;
+}
+
+.border-right-green-dotted:last-child {
+	border: none;
 }
 
 a:focus
@@ -833,22 +832,22 @@ font-size: 30px;
   left: -45px;
   top: 55px; 
   position: absolute;
-   background: none !important;
+  background: none !important;
 }
  
-  #owl-partner-institutions .owl-controls .owl-buttons .owl-prev
-  {
-  	left: -45px;
+#owl-partner-institutions .owl-controls .owl-buttons .owl-prev
+{
+  left: -45px;
   top: 20px; 
   position: absolute;
-   background: none !important;
-  }
+  background: none !important;
+}
   
 #owl-demo .owl-controls .owl-buttons .owl-next{
   right: -45px;
   top: 55px;
   position: absolute;
-   background: none !important;
+  background: none !important;
 }
 
 #owl-partner-institutions .owl-controls .owl-buttons .owl-next
@@ -908,13 +907,13 @@ font-size: 30px;
 
 .lab-list-row-div
 {
-	  background: url('../images/bottom-line-n.png') no-repeat;
-  background-position: left bottom;
-  height: auto;
-  overflow: hidden;
-  border-bottom: 1.5px dotted;
-  border-bottom-color: #888;
-  padding-bottom: 10px;
+	background: url('../images/bottom-line-n.png') no-repeat;
+  	background-position: left bottom;
+	height: auto;
+	overflow: hidden;
+	border-bottom: 1.5px dotted;
+	border-bottom-color: #888;
+	padding-bottom: 10px;
 }
 
 .lab-list-row-col-2
@@ -1332,4 +1331,3 @@ font-size: 30px;
 		font-size: 1.8em;	
 	}
 }
-
