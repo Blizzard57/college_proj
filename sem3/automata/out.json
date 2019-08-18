@@ -1,7 +1,5 @@
 {
-    "states": [
-        256
-    ],
+    "states": 256,
     "letters": [
         "a",
         "b",
