@@ -30,6 +30,7 @@
 ## Computatinal Chemistry
 
 - <mark style="background-color: aquamarine;">Gaussian </mark>&#10004;
+- <mark style="background-color: aquamarine;">Avogadro </mark>&#10004;
 - <mark style="background-color: aquamarine;">NAMD </mark> &#10004;
 - <mark style="background-color: red;">VMD </mark> &#10004;
 
@@ -52,6 +53,8 @@
 - Binary Exploiatation
 - <mark style="background-color: hotpink;"> Machine Learning </mark>
     - Follow : <https://www.coursera.org/learn/neural-networks-deep-learning/>
+- <mark style="background-color: hotpink;"> Tensorflow </mark>
+    - Follow : <https://www.coursera.org/learn/introduction-tensorflow/home/welcome>
 - Haskell
 - R
 - Competitive Programming
@@ -67,12 +70,16 @@
 - <mark style="background-color: aquamarine;"> Automaton </mark> &#10004;
 - <mark style="background-color: aqua;">HTML/CSS </mark> &#10004;
 - <mark style="background-color: aquamarine;"> Javascript/JQuery</mark> &#10004;
+- <mark style="background-color: aquamarine;"> Node JS </mark> &#10004;
 
-## Random Topics
+## Check Out
 
 - Gaussian Blur
 - ISA
 - File Extentions
+- Kernel
+- Gentoo
+- Linux From Scratch
 
 ## Graphic Design
 
