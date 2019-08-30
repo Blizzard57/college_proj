@@ -1,11 +1,10 @@
 # Learn
 
-Reference Material listed below the topic, if found. Also the reference books in their appropriate folders.
-Current topics are highlighted.
+>Reference Material listed below the topic, if found. Also the reference books in their appropriate folders. Current topics are highlighted.
 
 ## Math
 
-- <mark style="background-color: hotpink"> Tensors </mark>
+- <mark style="background-color: hotpink;"> Tensors </mark>
     - Follow : <https://www.youtube.com/watch?v=uaQeXi4E7gA> 
 - Hilbert Space
 - Manifold Theory
@@ -17,9 +16,9 @@ Current topics are highlighted.
 
 ## Physics
 
-- <mark style="background-color: hotpink"> Quantum Feild Theory </mark>
+- <mark style="background-color: hotpink;"> Quantum Feild Theory </mark>
     - Follow : <https://www.youtube.com/watch?v=T58H6ofIOpE>
-- <mark style="background-color: hotpink"> General Relativity </mark>
+- <mark style="background-color: hotpink;"> General Relativity </mark>
     - Follow : <https://www.youtube.com/watch?v=JRZgW1YjCKk>
 - <mark style="background-color: aquamarine;">Quantum Mechanics </mark>&#10004;
     - Follow : <https://www.youtube.com/watch?v=2h1E3YJMKfA>
@@ -36,20 +35,22 @@ Current topics are highlighted.
 
 ## Computer Science
 
-- <mark style="background-color: hotpink"> Theory of Programming Languages </mark>
+- <mark style="background-color: hotpink;"> Theory of Programming Languages </mark>
     - Follow : <https://www.coursera.org/learn/programming-languages/>
 - Operating Systems
 - Assembly x86
 - Metasploit
 - <mark style="background-color: aquamarine;">C Language</mark> &#10004;
 - <mark style="background-color: aquamarine;">Python</mark> &#10004;
+- <mark style="background-color: aquamarine;">Java</mark> &#10004;
+- <mark style="background-color: aquamarine;">Q Basic</mark> &#10004;
 - C++
 - Kotlin
 - Rust
 - Ruby
 - Django
 - Binary Exploiatation
-- <mark style="background-color: hotpink"> Machine Learning </mark>
+- <mark style="background-color: hotpink;"> Machine Learning </mark>
     - Follow : <https://www.coursera.org/learn/neural-networks-deep-learning/>
 - Haskell
 - R
@@ -59,19 +60,28 @@ Current topics are highlighted.
 - Android Studio
 - Quantum Computing
     - Source : <https://docs.microsoft.com/en-us/quantum/concepts/dirac-notation?view=qsharp-preview>
-- <mark style="background-color: hotpink"> Latex </mark>
+- <mark style="background-color: hotpink;"> Latex </mark>
 - Awk
-- <mark style="background-color: aqua"> Bash </mark> &#10004;
+- <mark style="background-color: aqua;"> Bash </mark> &#10004;
 - Docker
 - <mark style="background-color: aquamarine;"> Automaton </mark> &#10004;
-- HTML/CSS
-- Javascript/JQuery
+- <mark style="background-color: aqua;">HTML/CSS </mark> &#10004;
+- <mark style="background-color: aquamarine;"> Javascript/JQuery</mark> &#10004;
 
 ## Random Topics
 
 - Gaussian Blur
 - ISA
 - File Extentions
+
+## Graphic Design
+
+- Adobe Photoshop
+- Adobe Illustrator
+- Cyberlink PowerDirector
+- Autodesk 3ds Max
+- Adobe After Effects
+- Macromedia Flash
 
 >### Color Code
 >
