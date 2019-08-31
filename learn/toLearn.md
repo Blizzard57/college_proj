@@ -13,6 +13,8 @@
 - Higher Linear Algebra
 - Group Theory
 - Graph Theory
+- <mark style="background-color: aquamarine;"> Probability </mark>&#10004;
+- Calculus
 
 ## Physics
 
@@ -70,6 +72,9 @@
 - <mark style="background-color: aquamarine;"> Automaton </mark> &#10004;
 - <mark style="background-color: aqua;">HTML/CSS </mark> &#10004;
 - <mark style="background-color: aquamarine;"> Javascript/JQuery</mark> &#10004;
+- Algorithms
+- Parallel Computing
+    - Source : <https://ocw.mit.edu/courses/mathematics/18-337j-parallel-computing-fall-2011/>
 - <mark style="background-color: aquamarine;"> Node JS </mark> &#10004;
 
 ## Check Out
@@ -80,6 +85,7 @@
 - Kernel
 - Gentoo
 - Linux From Scratch
+- Ghidra (NSA)
 
 ## Graphic Design
 
