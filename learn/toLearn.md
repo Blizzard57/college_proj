@@ -90,6 +90,7 @@
 ## Graphic Design
 
 - Adobe Photoshop
+- GIMP
 - Adobe Illustrator
 - Cyberlink PowerDirector
 - Autodesk 3ds Max
