@@ -48,6 +48,8 @@
 - <mark style="background-color: aquamarine;">Java</mark> &#10004;
 - <mark style="background-color: aquamarine;">Q Basic</mark> &#10004;
 - C++
+- Data Structures
+    - Follow : <https://discuss.codechef.com/t/data-structures-and-algorithms/6599>
 - Kotlin
 - Rust
 - Ruby
@@ -94,6 +96,7 @@
 - Adobe Illustrator
 - Cyberlink PowerDirector
 - Autodesk 3ds Max
+- Blender
 - Adobe After Effects
 - Macromedia Flash
 
