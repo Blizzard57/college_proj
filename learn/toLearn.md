@@ -15,6 +15,7 @@
 - Graph Theory
 - <mark style="background-color: aquamarine;"> Probability </mark>&#10004;
 - Calculus
+- Matroid
 
 ## Physics
 
@@ -28,6 +29,22 @@
 - Quantum Electrodynamics
 - <mark style="background-color: Aquamarine;">Lagrangian </mark>&#10004;
     - Follow : <https://www.youtube.com/watch?v=ApUFtLCrU90>
+- Special Relativity
+- Particle Physics
+
+>#### General Source for Physics : - theoreticalminimum.com/
+>>Susskind Lectures
+
+## Chemisty
+
+- Hartree Fock
+- Density Functional Theory
+
+## Biology
+
+- Molecular Biology
+    - Source : 7.01SC MIT
+- Biotechnology
 
 ## Computatinal Chemistry
 
@@ -35,6 +52,7 @@
 - <mark style="background-color: aquamarine;">Avogadro </mark>&#10004;
 - <mark style="background-color: aquamarine;">NAMD </mark> &#10004;
 - <mark style="background-color: red;">VMD </mark> &#10004;
+- TCL Scripting
 
 ## Computer Science
 
@@ -99,6 +117,7 @@
 - Blender
 - Adobe After Effects
 - Macromedia Flash
+- Krita
 
 >### Color Code
 >
