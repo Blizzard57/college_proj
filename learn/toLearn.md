@@ -96,6 +96,8 @@
 - Parallel Computing
     - Source : <https://ocw.mit.edu/courses/mathematics/18-337j-parallel-computing-fall-2011/>
 - <mark style="background-color: aquamarine;"> Node JS </mark> &#10004;
+- Computer Architecture
+    - Source : <https://www.coursera.org/learn/comparch>
 
 ## Check Out
 

@@ -8,7 +8,13 @@
 >
 >>#### Date : 3 Sept '19
 
->Work Done:
->   - Particle Physics:
->       - Cherenkov Radiation
->       - Types of particles
+Work Done:
+
+- Particle Physics:
+
+    - Cherenkov Radiation
+    - Types of particles
+
+- Machine Learning
+
+    - First 3 weeks : Course 1
