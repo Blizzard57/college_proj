@@ -98,11 +98,11 @@
 - <mark style="background-color: aquamarine;"> Node JS </mark> &#10004;
 - Computer Architecture
     - Source : <https://www.coursera.org/learn/comparch>
+- Compilers
 
 ## Check Out
 
 - Gaussian Blur
-- ISA
 - File Extentions
 - Kernel
 - Gentoo
@@ -120,6 +120,14 @@
 - Adobe After Effects
 - Macromedia Flash
 - Krita
+
+## Hardware
+
+- Arduino
+- Bascom AVR
+- Digital Systems
+- ISA
+    - Source : Udemy course on the same
 
 >### Color Code
 >
