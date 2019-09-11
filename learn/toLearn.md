@@ -67,7 +67,7 @@
 - <mark style="background-color: aquamarine;">Q Basic</mark> &#10004;
 - C++
 - Data Structures
-    - Follow : <https://discuss.codechef.com/t/data-structures-and-algorithms/6599>
+    - Follow : <https://discuss.codechef.com/t/data-strufeynmanctures-and-algorithms/6599>
 - Kotlin
 - Rust
 - Ruby
