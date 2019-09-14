@@ -3,32 +3,25 @@
 #include<iostream>
 #include<math.h>
 
-int compare (const void * a, const void * b)
+/*int compare (const void * a, const void * b)
 {
   return ( *(int*)a - *(int*)b );
+}*/
+int gcd(int a,int b){
+    if(b==0) return a;
+    else gcd(b,a%b);
+    return -1;
 }
 
 using namespace std;
 int main(){
-    int k,n;
-    cin>>n>>k;
-    int arr[n];
-    for(int i=0;i<n;i++)
-        cin>>arr[i];
-    qsort(arr,n,sizeof(int),compare);
-    int flag=0;
-    for(int i=0;i<n-1;i++){
-        if(arr[i]==arr[i+1]){
-            arr[i] = -1;
-            flag++;
-        }
-    }
-    //qsort(arr,n,sizeof(int),compare);
-    //for(int i=flag;i<n;i++)
-        //cout<<arr[i]<<" ";
-    //cout<<"\n"<<n-flag<<" ";    
-    int ans = 8*k/n;
-    int fin_ans = pow(2,ans);
-    cout<<fin_ans<<"\n";
+    std::ios::sync_with_stdio(false);
+    int n,d,e;
+    cin>>n>>d>>e;
+    int inta,intb,ans;
+    inta = gcd(d,5*e);
+    intb = n/inta;
+    ans = n - (intb * inta);
+    cout<<n << " "<< inta << " " << intb << " " << ans;   
     return 0;    
 }
