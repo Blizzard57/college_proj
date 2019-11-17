@@ -1,0 +1,120 @@
+select AVG(Salary) as Average from EMPLOYEE ;
+Reason : AVG function computes Average of all the entries in the specified Field
+result :
++--------------+
+| Average      |
++--------------+
+| 35125.000000 |
++--------------+
+
+select Salary from EMPLOYEE order by Salary desc limit 1;
+Reason : Orders the query by Salary ( Descending ) and limits the ans to the top one (Given by Limit 1)
+result :
++----------+
+| Salary   |
++----------+
+| 55000.00 |
++----------+
+
+select Salary from EMPLOYEE order by Salary limit 1;
+Reason : Orders the query by Salary ( Ascending ) and limits the ans to the top one (Given by Limit 1)
+result :
++----------+
+| Salary   |
++----------+
+| 25000.00 |
++----------+
+
+select SUM(HOURS) as "Total Hours" from WORKS_ON where WORKS_ON.Essn = 987654321;
+Reason : Sum funtion sums all the entries, ans the where clause indicates that the Essn given must be 987654321
+result :
++-------------+
+| Total Hours |
++-------------+
+|        35.0 |
++-------------+
+
+select Fname from (select Fname, Dname, Dnumber, Ssn from DEPARTMENT, EMPLOYEE where EMPLOYEE.Dno = DEPARTMENT.Dnumber) as Table1 where Table1.Dname = "Administration";
+reason : Create a subtable which is a join of dept and employee such that the Dept no is same, and using that to find entree where Dept Name is Administration
+result :
++----------+
+| Fname    |
++----------+
+| Jennifer |
+| Ahmad    |
+| Alicia   |
++----------+
+
+select Fname from EMPLOYEE order by BDate desc;
+Reason : ordering by birthdate gieves the least number on the top, which is the highest age, hence order by Descending.
+result :
++----------+
+| Fname    |
++----------+
+| Joyce    |
+| Ahmad    |
+| Alicia   |
+| John     |
+| Ramesh   |
+| Franklin |
+| Jennifer |
+| James    |
++----------+
+
+SELECT Fname, Ssn from EMPLOYEE WHERE Ssn NOT IN (SELECT Essn FROM DEPENDENT GROUP BY Essn);
+Reason : Check if SSn not in Dependancy 
+Result :
++--------+-----------+
+| Fname  | Ssn       |
++--------+-----------+
+| Joyce  | 453453453 |
+| Ramesh | 666884444 |
+| James  | 888665555 |
+| Ahmad  | 987987987 |
+| Alicia | 999887777 |
++--------+-----------+
+
+select Fname, Sum(Hours) from (select Fname, Pname, Hours from (select Fname, Pname, Hours from PROJECT , (SELECT Fname, Hours, Pno from EMPLOYEE, WORKS_ON WHERE EMPLOYEE.Ssn = WORKS_ON.Essn) as Table1 where Table1.Pno = PROJECT.Pnumber) as Table2 where Pname like 'Product%') as Table3 group by Fname;
+Reason : Join EMPLOYEE and WORKS_ON where ssn are same, make it a subtable and join to PROJECT where Pno is same and then check its likeness with "Project" and group by  Fname to unique it.
+result :
++----------+------------+
+| Fname    | Sum(Hours) |
++----------+------------+
+| Franklin |       20.0 |
+| John     |       40.0 |
+| Joyce    |       40.0 |
+| Ramesh   |       40.0 |
++----------+------------+
+
+DELETE FROM WORKS_ON WHERE Pno = 30;
+DELETE FROM PROJECT WHERE Pnumber = 30;
+There is no Employee which only works on Pno = 30 Projext , thus no deletion from EMPLOYEE or DEPENDENT table, but delete entries from WORKS_ON and PROJECT table. Also no Change on DEPARTMENT as it no unique Dno for Pno = 30.
+result :
++-----------------+---------+-----------+------+
+| Pname           | Pnumber | Plocation | Dnum |
++-----------------+---------+-----------+------+
+| ProductX        |       1 | Bellaire  |    5 |
+| ProductY        |       2 | Sugarland |    5 |
+| ProductZ        |       3 | Houston   |    5 |
+| Computerization |      10 | Stafford  |    4 |
+| Reorganization  |      20 | Houston   |    1 |
++-----------------+---------+-----------+------+
+
++-----------+-----+-------+
+| Essn      | Pno | Hours |
++-----------+-----+-------+
+| 123456789 |   1 |  32.5 |
+| 123456789 |   2 |   7.5 |
+| 333445555 |   2 |  10.0 |
+| 333445555 |   3 |  10.0 |
+| 333445555 |  10 |  10.0 |
+| 333445555 |  20 |  10.0 |
+| 453453453 |   1 |  20.0 |
+| 453453453 |   2 |  20.0 |
+| 666884444 |   3 |  40.0 |
+| 888665555 |  20 |  NULL |
+| 987654321 |  20 |  15.0 |
+| 987987987 |  10 |  35.0 |
+| 999887777 |  10 |  10.0 |
++-----------+-----+-------+
+

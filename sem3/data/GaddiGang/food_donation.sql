@@ -1,0 +1,225 @@
+-- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
+--
+-- Host: localhost    Database: company
+-- ------------------------------------------------------
+-- Server version	5.7.27-0ubuntu0.19.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `DONATION`
+--
+
+CREATE DATABASE company;
+USE company;
+
+DROP TABLE IF EXISTS `DONATION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `DONATION` (
+  `DONATION_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `BENEFACTOR_ID` int(11) NOT NULL,
+  `DONATION_AMOUNT` int(11) DEFAULT NULL,
+  PRIMARY KEY (`DONATION_ID`),
+  KEY `BENEFACTOR_ID` (`BENEFACTOR_ID`),
+  CONSTRAINT `DONATION_ibfk_1` FOREIGN KEY (`BENEFACTOR_ID`) REFERENCES `FOOD_INTENSIVE_ORGANISATION` (`ORGANISATION_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `DONATION`
+--
+
+LOCK TABLES `DONATION` WRITE;
+/*!40000 ALTER TABLE `DONATION` DISABLE KEYS */;
+INSERT INTO `DONATION` VALUES (1,1,5000),(2,3,10000),(3,4,15000);
+/*!40000 ALTER TABLE `DONATION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `FOOD`
+--
+
+DROP TABLE IF EXISTS `FOOD`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `FOOD` (
+  `MEAL_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `STATE_OF_FOOD` varchar(10) DEFAULT NULL,
+  `EXPIRATION_DATE` date DEFAULT NULL,
+  `MEAL_NAME` varchar(35) DEFAULT NULL,
+  `PREFERENCE` tinyint(4) DEFAULT NULL,
+  `SERVING_SIZE` tinyint(4) DEFAULT NULL,
+  `TIME_OF_MAKING` time DEFAULT NULL,
+  `RESTAURANT_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`MEAL_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `FOOD`
+--
+
+LOCK TABLES `FOOD` WRITE;
+/*!40000 ALTER TABLE `FOOD` DISABLE KEYS */;
+INSERT INTO `FOOD` VALUES (1,'liquid','2019-09-15','Butter chicken masala',1,1,'08:00:00',2),(2,'solid','2019-09-14','Paratha',0,4,'10:00:00',3),(3,'liquid','2019-09-15','Tomato soup',0,2,'06:00:00',4),(4,'Solid','2019-02-20','Sub',0,32,'23:00:00',5);
+/*!40000 ALTER TABLE `FOOD` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `FOOD_INTENSIVE_ORGANISATION`
+--
+
+DROP TABLE IF EXISTS `FOOD_INTENSIVE_ORGANISATION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `FOOD_INTENSIVE_ORGANISATION` (
+  `ORGANISATION_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(25) DEFAULT NULL,
+  `NO_OF_PEOPLE_TO_FEED` int(11) DEFAULT NULL,
+  `NO_OF_VEGETARIANS` int(11) DEFAULT NULL,
+  `NO_OF_NON_VEGETARIANS` int(11) DEFAULT NULL,
+  `ADDRESS` varchar(25) DEFAULT NULL,
+  `MEAL_PREFERENCE` int(11) DEFAULT NULL,
+  `NO_OF_VOLUNTEERS` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ORGANISATION_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `FOOD_INTENSIVE_ORGANISATION`
+--
+
+LOCK TABLES `FOOD_INTENSIVE_ORGANISATION` WRITE;
+/*!40000 ALTER TABLE `FOOD_INTENSIVE_ORGANISATION` DISABLE KEYS */;
+INSERT INTO `FOOD_INTENSIVE_ORGANISATION` VALUES (1,'Bharatiya orphanage',20,5,19,'Kodapur',4,19),(2,'Tankar hospital',11,16,6,'Harati',5,23),(3,'Bharati school',20,16,2,'Istah',6,13),(4,'Naren oldage home',23,16,2,'Kalpeshwar',7,17),(5,'HappyChild',45,15,30,'Sama',4,32),(6,'Kamaal',30,0,30,'Kondapur',2,20),(7,'Bang',21,12,9,'Hitech City',2,22),(8,'Pear',33,11,22,'Jubilee Hills',1,43),(9,'Sal',1,0,1,'Vati',4,2),(10,'Sumba',100,90,10,'Gacchibowli',2,50),(11,'Fish',10,3,7,'Kondapur',6,12),(12,'Blip',10,3,7,'Sama',5,20),(13,'Fide',32,23,9,'Sama',7,12),(14,'Assa',12,0,12,'Gacchibowli',4,10),(15,'Time',43,21,22,'Kondapur',1,10);
+/*!40000 ALTER TABLE `FOOD_INTENSIVE_ORGANISATION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `MEAL_TIMINGS`
+--
+
+DROP TABLE IF EXISTS `MEAL_TIMINGS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `MEAL_TIMINGS` (
+  `ORGANISATION_ID` int(11) NOT NULL,
+  `MORNING` tinyint(4) DEFAULT NULL,
+  `EVENING` tinyint(4) DEFAULT NULL,
+  `NIGHT` tinyint(4) DEFAULT NULL,
+  KEY `ORGANISATION_ID` (`ORGANISATION_ID`),
+  CONSTRAINT `MEAL_TIMINGS_ibfk_1` FOREIGN KEY (`ORGANISATION_ID`) REFERENCES `FOOD_INTENSIVE_ORGANISATION` (`ORGANISATION_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `MEAL_TIMINGS`
+--
+
+LOCK TABLES `MEAL_TIMINGS` WRITE;
+/*!40000 ALTER TABLE `MEAL_TIMINGS` DISABLE KEYS */;
+INSERT INTO `MEAL_TIMINGS` VALUES (1,0,1,1),(2,0,1,1),(3,1,0,1),(4,0,1,1),(5,0,1,1),(6,1,1,1),(7,0,0,1),(8,1,0,1),(9,1,0,0),(10,1,0,1),(11,1,0,1),(12,0,0,1),(13,0,1,1),(14,1,1,1),(15,1,1,0);
+/*!40000 ALTER TABLE `MEAL_TIMINGS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `RESTAURANT`
+--
+
+DROP TABLE IF EXISTS `RESTAURANT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RESTAURANT` (
+  `RESTAURANT_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(40) DEFAULT NULL,
+  `ADDRESS` varchar(40) DEFAULT NULL,
+  `AMOUNT_OF_SURPLUS` int(11) DEFAULT NULL,
+  PRIMARY KEY (`RESTAURANT_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `RESTAURANT`
+--
+
+LOCK TABLES `RESTAURANT` WRITE;
+/*!40000 ALTER TABLE `RESTAURANT` DISABLE KEYS */;
+INSERT INTO `RESTAURANT` VALUES (2,'Mohammed','Hitech city',10),(3,'Paradise','Jubilee hills',17),(4,'Subway','Kondapur',12),(5,'Dominos','Gacchibowli',34),(6,'Pizza Hut','Karelibaug',23),(7,'One Time','Manjalpur',40),(8,'Dosa Palace','Manjalpur',20);
+/*!40000 ALTER TABLE `RESTAURANT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `TIME_OF_COLLECTION`
+--
+
+DROP TABLE IF EXISTS `TIME_OF_COLLECTION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `TIME_OF_COLLECTION` (
+  `RESTAURANT_ID` int(11) NOT NULL,
+  `MORNING` tinyint(4) DEFAULT NULL,
+  `EVENING` tinyint(4) DEFAULT NULL,
+  `NIGHT` tinyint(4) DEFAULT NULL,
+  KEY `RESTAURANT_ID` (`RESTAURANT_ID`),
+  CONSTRAINT `TIME_OF_COLLECTION_ibfk_1` FOREIGN KEY (`RESTAURANT_ID`) REFERENCES `RESTAURANT` (`RESTAURANT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `TIME_OF_COLLECTION`
+--
+
+LOCK TABLES `TIME_OF_COLLECTION` WRITE;
+/*!40000 ALTER TABLE `TIME_OF_COLLECTION` DISABLE KEYS */;
+INSERT INTO `TIME_OF_COLLECTION` VALUES (2,0,1,1),(3,1,0,1),(4,1,1,0),(5,1,0,0),(6,1,0,1),(7,0,0,1),(8,0,1,0);
+/*!40000 ALTER TABLE `TIME_OF_COLLECTION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `VOLUNTEER`
+--
+
+DROP TABLE IF EXISTS `VOLUNTEER`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `VOLUNTEER` (
+  `VOLUNTEER_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `VOLUNTEER_NAME` varchar(25) DEFAULT NULL,
+  `TIME_SLOT` varchar(10) DEFAULT NULL,
+  `AGE` int(11) DEFAULT NULL,
+  `BIRTH_DATE` date DEFAULT NULL,
+  `ADDRESS` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`VOLUNTEER_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `VOLUNTEER`
+--
+
+LOCK TABLES `VOLUNTEER` WRITE;
+/*!40000 ALTER TABLE `VOLUNTEER` DISABLE KEYS */;
+INSERT INTO `VOLUNTEER` VALUES (1,'Monika','MORNING',23,'1996-02-20','Gachibowli'),(2,'Niharika','NIGHT',20,'2000-06-11','Jubilee hills'),(3,'Vishal','EVENING',30,'1989-02-20','Kodapur'),(4,'Kalp','Morning',19,'2000-02-15','Sama');
+/*!40000 ALTER TABLE `VOLUNTEER` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-11-13  2:20:06
