@@ -4,14 +4,23 @@
 # n is stored in %rbx
 # The final answer is stored in %rax at the end
 
+.section .data
+    .outputstring:
+        .ascii "Final Ans = %lld\n\0"
+        .text
+
 main:
     pushq %rbp
     movq  %rsp,%rbp
-    movq  $8,%r10 # n = 7, n --> %rbx
+    movq  $6,%r10 # n = 7, n --> %rbx
     movq  %r10,%r8  
     movq  $1,%r9
     call  fac
     syscall
+    movq  %r9,%rax
+    leaq  .outputstring(%rip), %rdi
+    movq  %rax,%rsi
+    call  printf@PLT
     popq  %rbp
 
 
@@ -23,10 +32,10 @@ fac:
     imulq %r8,%r9
     subq  $1,%r8
     call  fac
-    popq  %rbp            
+    popq  %rbp 
+    ret           
 
 base:
-    movq  %r9,%rax
     movq  %rbp,%rsp
     popq  %rbp
 #   popq  %rbp
