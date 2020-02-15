@@ -1,26 +1,136 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import UserTable from './components/UserTable';
+import Form from './components/Form';
+import Message from './components/Message';
+import UserAPI from './UserAPI';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            users : [],
+            isEditForm : false,
+            user : {
+                firstName : "",
+                lastName : "",
+                job : ""
+            },
+            message : ""
+        },
+        this.deleteHandler = this.deleteHandler.bind(this);
+        this.addHandler = this.addHandler.bind(this);
+        this.updateHandler = this.updateHandler.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.showEditForm = this.showEditForm.bind(this);
+    }
+
+    componentDidMount(){
+        UserAPI.getUsers().then(data=>{this.setState({users : data.response})});
+    }
+
+    resetForm(){
+        this.setState({
+            user: {
+                firstName : "",
+                lastName : "",
+                job : ""
+            }
+        });
+    }
+
+    handleChange(e){
+        this.setState({
+            user: {
+                ...this.state.user,
+                [e.target.name] : e.target.value
+            }
+        });
+    }
+
+    showEditForm(user){
+        this.setState({isEditForm: true, user : user});
+    }
+
+    async deleteHandler(id){
+        const deleteData = await UserAPI.deleteUser(id);
+        const message = deleteData.message;
+        if(message.msgError){
+            this.setState({message});
+        }
+        else{
+            const data = await UserAPI.getUsers();
+            this.setState({message,users : data.response})
+        }
+    }
+
+    async updateHandler(e){
+        e.preventDefault();
+        const updateData = await UserAPI.updateUser(this.state.user);
+        const message = updateData.message;
+        if(message.msgError){
+            this.setState({message});
+        }
+        else{
+            const data = await UserAPI.getUsers();
+            this.setState({message,users : data.response})
+        }
+        this.setState({isEditForm:false});
+        this.resetForm();
+    }
+
+    async addHandler(e){
+        e.preventDefault();
+        const postData = await UserAPI.createUser(this.state.user);
+        const message = postData.message;
+        if(message.msgError){
+            this.setState({message});
+        }
+        else{
+            const data = await UserAPI.getUsers();
+            this.setState({message,users : data.response})
+        }
+        this.resetForm();
+    }
+
+    renderUserTable(){
+        if(this.state.users.length > 0){
+            return(
+                <UserTable users = {this.state.users} 
+                           deleteHandler={this.deleteHandler} 
+                           showEditForm={this.showEditForm}/>
+            );
+        }
+        return null;
+    }
+
+    renderForm(){
+        return(
+            <Form isEditForm={this.state.isEditForm}
+                  user={this.state.user}
+                  handleChange={this.handleChange}
+                  handler={!this.state.isEditForm ? this.addHandler : this.updateHandler}/>
+        );
+    }
+
+    renderMessage(){
+        if(this.state.message === "")
+            return null;
+        return(
+            <Message message={this.state.message}/>
+        );
+    }
+
+    render(){
+        return(
+            <div className="row">
+                <div className="col"></div>
+                <div className="col-10">
+                    {this.renderUserTable()}
+                    {this.renderForm()}
+                    {this.renderMessage()}
+                </div>
+                <div className="col"></div>
+            </div>
+        )
+    }
 }
-
-export default App;
