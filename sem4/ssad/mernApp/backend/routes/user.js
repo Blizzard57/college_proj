@@ -65,3 +65,5 @@ userRouter.put('/:id',(req,res)=>{
             }});
     });
 });
+
+module.exports = userRouter;
