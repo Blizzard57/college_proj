@@ -1,0 +1,36 @@
+.pos 0
+Init:
+    irmovl $1, %eax # i! intermideates
+    irmovl $27, %ebx # Value of N
+    irmovl $1, %ecx # Value of i ==> Also the answer
+    rrmovl %eax, %edx # Dupliate value of i!
+    rrmovl %ecx, %esi # Duplicate value of i
+    irmovl $1, %edi # Permanent 1
+    jmp cmp
+    
+intfac:
+    rrmovl %eax, %edx
+    jmp cmp
+cmp:
+    subl %ebx, %edx
+    jg cmp
+    je fin
+    jl inti
+
+inti:
+    rrmovl %eax, %edx 
+    irmovl $1, %edi # Addition with 1
+    addl %edi, %ecx # Incrementing the value of i ( i+=1 )
+    rrmovl %ecx, %esi # Changing the value of duplicate as well
+    subl %edi, %esi
+mul:
+    irmovl $1, %edi # Comparision with 2
+    addl %edx, %eax
+    subl %edi, %esi # i -= 1, for looping
+    jg mul
+    jle intfac
+    
+fin:
+    halt
+    
+.pos 0x100
