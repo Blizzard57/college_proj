@@ -7,7 +7,7 @@
         .text
 
 main:
-    movq  $6, %rbx           # n stored in rbx
+    movq  $7, %rbx           # n stored in rbx
     movq  %rbx, %r9          # r9 = n
     subq  $1, %r9            # Indexing starts from 0
     imulq $-8, %r9, %r8      # r8 sores the index of the last value
@@ -22,6 +22,7 @@ inputstack:
     movq  $2, -24(%rcx)
     movq  $10,-32(%rcx)
     movq  $8, -40(%rcx)
+    movq  $15,-48(%rcx)
     # push  %rdx
     
 outputinit:
@@ -57,12 +58,15 @@ setans:
 
 ans:
     # Print the values
-    movq %rsp, %rdx         # Stack pointer ==> rdx 
+    push %rdx         # Stack pointer ==> rdx 
+    movq %rsp, %rdx
+    movq -80(%rcx), %rax
+    movq %rax, -8(%rdx)
     # lea .outputstring(%rip), %rdi
     # movq (%rdx), %rsi
     # call printf@PLT
     
 end:
-    # pop   %rdx
+    pop   %rdx
     pop   %rcx
     ret
