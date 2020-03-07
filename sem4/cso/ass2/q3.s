@@ -49,7 +49,7 @@ loop2:                       # j(r10) in range(i,-1,-1)
 
 setans:
     # movq %rsp, %rdx          # Stack pointer ==> rdx
-    # movq %r14, (%r15,%rcx) 
+    movq %r14, (%r15,%rcx) 
     movq $-1, %r14
     subq $8, %r15               # Pointing to next index
     # movq %rsp, %rcx          # Stack pointer ==> rcx
