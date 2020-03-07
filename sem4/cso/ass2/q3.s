@@ -58,10 +58,19 @@ setans:
 
 ans:
     # Print the values
+    imulq $-8, %rbx, %r9   # r9 = -8*n 
+    movq $0, %r10          # r10 = 0
     push %rdx         # Stack pointer ==> rdx 
     movq %rsp, %rdx
-    movq -80(%rcx), %rax
-    movq %rax, -8(%rdx)
+
+ansloop:
+    movq (%r9,%rcx), %rax
+    movq %rax, (%r10,%rdx)
+    subq $8, %r9
+    subq $8, %r10
+    cmp %r8, %r10
+    jl end
+    jmp ansloop
     # lea .outputstring(%rip), %rdi
     # movq (%rdx), %rsi
     # call printf@PLT
