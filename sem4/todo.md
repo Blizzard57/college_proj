@@ -4,7 +4,7 @@ The list of things to do this break. (16 March '20)
 
 ## College Courses
 
-The courses done this semester
+### The courses done this semester
 
 - Stat Mech
   - Assignment 1 (18 March)
@@ -18,3 +18,5 @@ The courses done this semester
     - Write a genetic code
 - CSO
   - Revise notes till what is done
+
+### Things to do otherwise
