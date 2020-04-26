@@ -1,0 +1,235 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{alltt}
+\usepackage{amssymb}
+\usepackage{chemfig}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage{paralist}
+\usepackage{tcolorbox}
+\usepackage{braket}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{esint}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\title{DASS End Semester}
+\date{2020-04-26}
+\author{Kalp Shah : 2018113003}
+
+\lstdefinestyle{shared}{
+    belowcaptionskip=1\baselineskip,
+    breaklines=true,
+    xleftmargin=\parindent,
+    showstringspaces=false,
+    basicstyle=\fontsize{10}{6}\ttfamily,
+}
+\lstdefinestyle{cpp}{
+	style=shared,
+    language=C++,
+    keywordstyle=\bfseries\color{green!40!black},
+    commentstyle=\itshape\color{red!80!black},
+    identifierstyle=\color{blue},
+    stringstyle=\color{purple!40!black},
+}
+\lstdefinestyle{java}{
+    style=shared,
+    language=Java,
+    keywordstyle=\bfseries\color{green!40!black},
+    commentstyle=\itshape\color{purple!40!black},
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange},
+}
+\lstdefinestyle{py}{
+    style=shared,
+    language=Python,
+    keywordstyle=\bfseries\color{green!40!black},
+    commentstyle=\itshape\color{purple!40!black},
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange},
+}
+\lstdefinestyle{txt}{
+    style=shared,
+}
+\lstset{escapechar=@}
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+\newenvironment{theorem}[2][]{%
+\refstepcounter{theo}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Theorem~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+
+\newcounter{prf}[section]\setcounter{prf}{0}
+\renewcommand{\theprf}{\arabic{section}.\arabic{prf}}
+\newenvironment{proof}[2][]{%
+\refstepcounter{prf}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut Proof~\theprf};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!20]
+{\strut Proof~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=red!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+
+\newcounter{prob}[section]\setcounter{prob}{0}
+\renewcommand{\theprob}{\arabic{section}.\arabic{prob}}
+\newenvironment{problem}[2][]{%
+\refstepcounter{prob}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!80]
+{\strut Problem~\theprob};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=red!80]
+{\strut Problem~\theprob:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=red!80,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+
+\newcounter{exm}[section]\setcounter{exm}{0}
+\renewcommand{\theexm}{\arabic{section}.\arabic{exm}}
+\newenvironment{example}[2][]{%
+\refstepcounter{exm}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=green!20]
+{\strut Example~\theexm};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=green!20]
+{\strut Example~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=green!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+
+\newcounter{def}[section]\setcounter{def}{0}
+\renewcommand{\thedef}{\arabic{section}.\arabic{def}}
+\newenvironment{definition}[2][]{%
+\refstepcounter{def}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=purple!20]
+{\strut Definition~\thedef};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=purple!20]
+{\strut Definition~\thetheo:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=purple!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]\relax%
+\label{#2}}{\end{mdframed}}
+
+\let\cleardoublepage\clearpage
+
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+\begin{abstract}
+Just a 3-4 sentence description of your solution to the problem in hand. Something like ’This is a major
+problem that people face and we propose XYZ, a novel software system application that will take as
+input yada yada yada’.
+\end{abstract}
+
+\section*{Introduction}
+Explain briefly about your problem and the difficulties that people 
+face because of it. You must convince the reader that the problem is 
+indeed a major one and that coming up with a solution is paramount.
+
+\section*{Literature Review}
+This is where you have to do some research and read papers and scientific articles online. You must
+talk about the ongoing research in the filed of your problem statement and the existing technologies out
+there that try to solve a similar problem that you’re working on. You should explore existing products
+in the solution space, maybe study the existing data and convince the reader that you are well versed
+about the ongoing research related to your problem.
+
+\section*{System Architecture}
+This is the significant part of your research paper, where you design the software system and explain
+its overall architecture. You should explain the pipeline of your system, about the various interactions
+between the model, view and the controller, how the database is being updated etc.
+We expect a neat design that eloquently explains your system. Use classic software design principles for
+this, listing down the use cases and making use of UML sequence, state and class diagrams.
+You should present a nice blueprint of your system and convince the reader that it’s an effective system
+and would have a high probability of succeeding in the real world.
+
+\section*{Conclusion and Future Work}
+Conclude well and summarise your solution in 3-4 sentences. Talk about future work and how things
+can be improved in the coming times.
+
+\section*{References}
+Whatever you read online - research papers, scientific journal articles etc. - please cite them.
+
+\end{document}
