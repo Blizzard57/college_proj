@@ -11,14 +11,12 @@
 \usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage{multicol}
 \usepackage{paralist}
 \usepackage{tcolorbox}
 \usepackage{braket}
 \usepackage[framemethod=TikZ]{mdframed}
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
-\usepackage[colorinlistoftodos]{todonotes}
 \usepackage{esint}
 \usepackage{hyperref}
 \hypersetup{
@@ -32,204 +30,165 @@
 \date{2020-04-26}
 \author{Kalp Shah : 2018113003}
 
-\lstdefinestyle{shared}{
-    belowcaptionskip=1\baselineskip,
-    breaklines=true,
-    xleftmargin=\parindent,
-    showstringspaces=false,
-    basicstyle=\fontsize{10}{6}\ttfamily,
-}
-\lstdefinestyle{cpp}{
-	style=shared,
-    language=C++,
-    keywordstyle=\bfseries\color{green!40!black},
-    commentstyle=\itshape\color{red!80!black},
-    identifierstyle=\color{blue},
-    stringstyle=\color{purple!40!black},
-}
-\lstdefinestyle{java}{
-    style=shared,
-    language=Java,
-    keywordstyle=\bfseries\color{green!40!black},
-    commentstyle=\itshape\color{purple!40!black},
-    identifierstyle=\color{blue},
-    stringstyle=\color{orange},
-}
-\lstdefinestyle{py}{
-    style=shared,
-    language=Python,
-    keywordstyle=\bfseries\color{green!40!black},
-    commentstyle=\itshape\color{purple!40!black},
-    identifierstyle=\color{blue},
-    stringstyle=\color{orange},
-}
-\lstdefinestyle{txt}{
-    style=shared,
-}
-\lstset{escapechar=@}
-
-\newcounter{theo}[section]\setcounter{theo}{0}
-\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
-\newenvironment{theorem}[2][]{%
-\refstepcounter{theo}%
-\ifstrempty{#1}%
-{\mdfsetup{%
-frametitle={%
-\tikz[baseline=(current bounding box.east),outer sep=0pt]
-\node[anchor=east,rectangle,fill=blue!20]
-{\strut Theorem~\thetheo};}}
-}%
-{\mdfsetup{%
-frametitle={%
-\tikz[baseline=(current bounding box.east),outer sep=0pt]
-\node[anchor=east,rectangle,fill=blue!20]
-{\strut Theorem~\thetheo:~#1};}}%
-}%
-\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
-linewidth=2pt,topline=true,%
-frametitleaboveskip=\dimexpr-\ht\strutbox\relax
-}
-\begin{mdframed}[]\relax%
-\label{#2}}{\end{mdframed}}
-
-
-\newcounter{prf}[section]\setcounter{prf}{0}
-\renewcommand{\theprf}{\arabic{section}.\arabic{prf}}
-\newenvironment{proof}[2][]{%
-\refstepcounter{prf}%
-\ifstrempty{#1}%
-{\mdfsetup{%
-frametitle={%
-\tikz[baseline=(current bounding box.east),outer sep=0pt]
-\node[anchor=east,rectangle,fill=red!20]
-{\strut Proof~\theprf};}}
-}%
-{\mdfsetup{%
-frametitle={%
-\tikz[baseline=(current bounding box.east),outer sep=0pt]
-\node[anchor=east,rectangle,fill=red!20]
-{\strut Proof~\thetheo:~#1};}}%
-}%
-\mdfsetup{innertopmargin=10pt,linecolor=red!20,%
-linewidth=2pt,topline=true,%
-frametitleaboveskip=\dimexpr-\ht\strutbox\relax
-}
-\begin{mdframed}[]\relax%
-\label{#2}}{\end{mdframed}}
-
-
-\newcounter{prob}[section]\setcounter{prob}{0}
-\renewcommand{\theprob}{\arabic{section}.\arabic{prob}}
-\newenvironment{problem}[2][]{%
-\refstepcounter{prob}%
-\ifstrempty{#1}%
-{\mdfsetup{%
-frametitle={%
-\tikz[baseline=(current bounding box.east),outer sep=0pt]
-\node[anchor=east,rectangle,fill=red!80]
-{\strut Problem~\theprob};}}
-}%
-{\mdfsetup{%
-frametitle={%
-\tikz[baseline=(current bounding box.east),outer sep=0pt]
-\node[anchor=east,rectangle,fill=red!80]
-{\strut Problem~\theprob:~#1};}}%
-}%
-\mdfsetup{innertopmargin=10pt,linecolor=red!80,%
-linewidth=2pt,topline=true,%
-frametitleaboveskip=\dimexpr-\ht\strutbox\relax
-}
-\begin{mdframed}[]\relax%
-\label{#2}}{\end{mdframed}}
-
-
-\newcounter{exm}[section]\setcounter{exm}{0}
-\renewcommand{\theexm}{\arabic{section}.\arabic{exm}}
-\newenvironment{example}[2][]{%
-\refstepcounter{exm}%
-\ifstrempty{#1}%
-{\mdfsetup{%
-frametitle={%
-\tikz[baseline=(current bounding box.east),outer sep=0pt]
-\node[anchor=east,rectangle,fill=green!20]
-{\strut Example~\theexm};}}
-}%
-{\mdfsetup{%
-frametitle={%
-\tikz[baseline=(current bounding box.east),outer sep=0pt]
-\node[anchor=east,rectangle,fill=green!20]
-{\strut Example~\thetheo:~#1};}}%
-}%
-\mdfsetup{innertopmargin=10pt,linecolor=green!20,%
-linewidth=2pt,topline=true,%
-frametitleaboveskip=\dimexpr-\ht\strutbox\relax
-}
-\begin{mdframed}[]\relax%
-\label{#2}}{\end{mdframed}}
-
-
-\newcounter{def}[section]\setcounter{def}{0}
-\renewcommand{\thedef}{\arabic{section}.\arabic{def}}
-\newenvironment{definition}[2][]{%
-\refstepcounter{def}%
-\ifstrempty{#1}%
-{\mdfsetup{%
-frametitle={%
-\tikz[baseline=(current bounding box.east),outer sep=0pt]
-\node[anchor=east,rectangle,fill=purple!20]
-{\strut Definition~\thedef};}}
-}%
-{\mdfsetup{%
-frametitle={%
-\tikz[baseline=(current bounding box.east),outer sep=0pt]
-\node[anchor=east,rectangle,fill=purple!20]
-{\strut Definition~\thetheo:~#1};}}%
-}%
-\mdfsetup{innertopmargin=10pt,linecolor=purple!20,%
-linewidth=2pt,topline=true,%
-frametitleaboveskip=\dimexpr-\ht\strutbox\relax
-}
-\begin{mdframed}[]\relax%
-\label{#2}}{\end{mdframed}}
-
-\let\cleardoublepage\clearpage
-
+\setlength{\columnsep}{20pt}
 
 \begin{document}
 \pagenumbering{arabic}
 \maketitle
 \begin{abstract}
-Just a 3-4 sentence description of your solution to the problem in hand. Something like ’This is a major
-problem that people face and we propose XYZ, a novel software system application that will take as
-input yada yada yada’.
+The Indian Government has imposed a country wide lockdown, due to the 
+pandemic created by Corona Virus (COVID 19). This move was required, 
+and to end this pandemic the guidlines given must be followed. But many 
+people are not following it, and these people need to be caught. Our 
+sofware system is the one that utilizes the current infrastructure and 
+uses face recognition to detect people and penalize them as required.
+
 \end{abstract}
 
 \section*{Introduction}
-Explain briefly about your problem and the difficulties that people 
-face because of it. You must convince the reader that the problem is 
-indeed a major one and that coming up with a solution is paramount.
+Corona Virus (COVID 19) has created a global pandemic as it is a virus with 
+mortality rate of over 4\%, having already killed millions of people worldwide 
+and spreads via air and contact and to add to the problem at hand, there is no 
+cure in sight. Hence, the global lockdown needs to be obeyed for the pandemic 
+to be over.
 
 \section*{Literature Review}
-This is where you have to do some research and read papers and scientific articles online. You must
-talk about the ongoing research in the filed of your problem statement and the existing technologies out
-there that try to solve a similar problem that you’re working on. You should explore existing products
-in the solution space, maybe study the existing data and convince the reader that you are well versed
-about the ongoing research related to your problem.
+There are many studies going on to find the cure of the Corona Virus, each 
+looking at the similarity in structure of the virus with that of SARS COV (also 
+known as Corona Virus), and trying to make a cure by modifying drugs made 
+for the original Corona Virus.
+\\\\
+Detailed study on the structure of the virus is also carried out, which 
+enables people to know what preventive measures to apply. For example, the 
+lipid bilayer which is essential for the survival of the virus can be killed 
+using soap. This information was known after knowing the structure and formation 
+of the virus.
+\\\\
+Software companies like Google and Apple are probiding technologies that can, 
+using bluetooth, that can do contact tracing (Corona spreads via contact) and 
+is also providing APIs that can do the same.
+\\\\
+These are some of the ways in which many leading scientists and sofware 
+companies are helping fighting the Corona Virus.
 
 \section*{System Architecture}
-This is the significant part of your research paper, where you design the software system and explain
-its overall architecture. You should explain the pipeline of your system, about the various interactions
-between the model, view and the controller, how the database is being updated etc.
-We expect a neat design that eloquently explains your system. Use classic software design principles for
-this, listing down the use cases and making use of UML sequence, state and class diagrams.
-You should present a nice blueprint of your system and convince the reader that it’s an effective system
-and would have a high probability of succeeding in the real world.
+The software solution proposed in the paper is completely software based with 
+no extra hardware infrastructure required and can be implemented without 
+any modifications.
+
+\subsection*{Concept}
+The concept behind the idea is that people behave more when a monetary penalty is 
+associated with the negative result. Hence, if a person is barred from going outside 
+with the penalty of say Rs. 5000, they will not do it unless absolutely necassary.
+Of course if there is a genuine reason of going outside, no penalty will be applicable.
+\\\\
+The idea is to monitor the amount of time spent by each person out of their 
+homes and penalise (monetary) accordingly with the option for them to appeal the 
+penalty within reason.
+
+\subsection*{Pipeline}
+The pipeline of the system is as follows:\\\\ There are many cameras on every crossroads 
+in India, and are already used to find culprits who are not wearing helmets (or 
+other such trafic violations) and memos are sent to their house. The same structure 
+can be used to monitor vehicles and people.\\\\ Everytime the camera detects a person, 
+it gets updated on the database managed for each person uniquely identified 
+using the Adhaar card  information (Which has both, the photo of the person and the 
+identification of the vehicles owned under the persons name).\\\\After that every 
+weekend, a memo is sent which contains the amount of money default. People can 
+also see the total amount they owe using a webpage which uses Adhaar ID as the 
+login information and also gives an option to appeal the penalty online. \\\\
+Payment can also be done via the portal provided in the web application. The 
+person can pay the amount wanted, which will be deducted from the total amount 
+owed.\\\\
+This is the basic working of the application.
+
+\subsection*{Users}
+The users of the application are the defalters (check their amount, 
+complain and pay) and the people who send out the memos. As the whole 
+system is automated no third party is required.
+
+\subsection*{MVC}
+
+\subsubsection*{Model}
+The model in this system is the database that stores the amount of times the person 
+is detected by the camera, the amount they owe and the complaints 
+from the user.
+
+\subsubsection*{View}
+The view is the web application that displays the amount
+(of times detected) and default amount after the user logs in using their 
+Adhaar ID.
+
+\subsubsection*{Controller}
+The controller is the application that monitors the cameras 
+to detect which person is detected, and also the user who can complain.
+
+\subsubsection*{Interactions}
+There are two ways by which a controller would update the model, which would in turn 
+lead to the view being updated. The ways are :
+
+\begin{itemize}
+    \item Contoller detects a person, then it identifies the person using either their 
+    photograph or using their vehicle ID, and using that ID, updates the amount seen by 
+    1, which then results in the amount owed feild also being changed.
+    \item Controller wants to complain against an offence against it, which leads to the 
+    model updating the complaint feild.
+    \item Controller pays amount which is deducted from the amount due and is updated in 
+    the model. 
+\end{itemize}
+
+Every change in model leads to change in view.
+
+\subsection*{Updation of the Database}
+Database is updated when the controller intercts with the model. The instances 
+of the same are given above. No other method can change the database.
+
+\subsection*{Diagrams}
+\subsubsection*{UML Class Diagram}
+\begin{center}
+    \includegraphics[scale=0.3]{img/Class Diagram.png}    
+\end{center}
+
+\noindent This diagram gives a basic idea on how the classes are generated 
+and how they will correspond with each other.
+\\\\
+The classes created are :
+\begin{itemize}
+    \item Dashboard\\
+    The frontend of the web application that displays information, is a gateway to 
+    payment, and house the method to give complaints.
+    \item Data Hander\\
+    Handles the database and allows different classes to access and modify it.
+    \item Payment\\
+    Payment portal that takes necessary information from the user takes him to the 
+    banks website for payment and reports if the transaction was successful.
+    \item Sensor\\
+    Automated machine that detects and updates database when it encounters and 
+    identifies a person.
+\end{itemize}
+fuckit
+\\\\
+
+This is the significant part of your research paper, where you design the 
+software system and explain its overall architecture. You should explain 
+the pipeline of your system, about the various interactions between the model, 
+view and the controller, how the database is being updated etc. We expect a neat 
+design that eloquently explains your system. Use classic software design principles 
+for this, listing down the use cases and making use of UML sequence, state and 
+class diagrams. You should present a nice blueprint of your system and convince 
+the reader that it’s an effective system and would have a high probability of 
+succeeding in the real world.
 
 \section*{Conclusion and Future Work}
-Conclude well and summarise your solution in 3-4 sentences. Talk about future work and how things
-can be improved in the coming times.
+Conclude well and summarise your solution in 3-4 sentences. 
+Talk about future work and how things can be improved in the coming times.
 
 \section*{References}
-Whatever you read online - research papers, scientific journal articles etc. - please cite them.
+Sources :
+\begin{itemize}
+    \item \href{https://www.apple.com/in/newsroom/2020/04/apple-and-google-partner-on-covid-19-contact-tracing-technology/}{Apple and Goole Collaboration}
+    \item \href{https://science.sciencemag.org/content/368/6489/409}{Finding cure of Corona Virus using structural similarity}
+    \item \href{https://www.thehindu.com/sci-tech/science/how-does-soap-use-help-in-tackling-covid-19/article31070630.ece}{Soap as a protection against Corona Virus}
+\end{itemize}
 
 \end{document}
