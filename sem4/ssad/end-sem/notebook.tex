@@ -97,15 +97,24 @@ identification of the vehicles owned under the persons name).\\\\After that ever
 weekend, a memo is sent which contains the amount of money default. People can 
 also see the total amount they owe using a webpage which uses Adhaar ID as the 
 login information and also gives an option to appeal the penalty online. \\\\
-Payment can also be done via the portal provided in the web application. The 
+The person can then pay via the portal provided in the web application. The 
 person can pay the amount wanted, which will be deducted from the total amount 
-owed.\\\\
+owed.\\\\After that, every person who is eligible (Government employed) to 
+review complaints will be alloted the complaints which they have the 
+power to waive off.\\\\
 This is the basic working of the application.
 
 \subsection*{Users}
-The users of the application are the defalters (check their amount, 
-complain and pay) and the people who send out the memos. As the whole 
-system is automated no third party is required.
+The users of the application are :
+\begin{itemize}
+    \item The Defalters \\
+        People who check their amount, complain and pay.
+    \item Employee (Type 1) \\
+        The people who review the complaints.
+    \item Employee (Type 2)\\
+        The people who send out the memos.
+\end{itemize}
+As the whole system is automated no third party is required.
 
 \subsection*{MVC}
 
@@ -121,7 +130,8 @@ Adhaar ID.
 
 \subsubsection*{Controller}
 The controller is the application that monitors the cameras 
-to detect which person is detected, and also the user who can complain.
+to detect which person is detected, the user who can complain and the 
+employee who can review the complaint.
 
 \subsubsection*{Interactions}
 There are two ways by which a controller would update the model, which would in turn 
@@ -135,6 +145,8 @@ lead to the view being updated. The ways are :
     model updating the complaint feild.
     \item Controller pays amount which is deducted from the amount due and is updated in 
     the model. 
+    \item Controller reviews the complaint, and if deems resonable can waive off the 
+    amount which will update the database and deduct the amount.
 \end{itemize}
 
 Every change in model leads to change in view.
@@ -144,10 +156,12 @@ Database is updated when the controller intercts with the model. The instances
 of the same are given above. No other method can change the database.
 
 \subsection*{Diagrams}
-\subsubsection*{UML Class Diagram}
-\begin{center}
+\subsubsection*{Class Diagram}
+\begin{figure}[h]
+    \centering
     \includegraphics[scale=0.3]{img/Class Diagram.png}    
-\end{center}
+    \caption{Class Diagram}
+\end{figure}
 
 \noindent This diagram gives a basic idea on how the classes are generated 
 and how they will correspond with each other.
@@ -165,10 +179,60 @@ The classes created are :
     \item Sensor\\
     Automated machine that detects and updates database when it encounters and 
     identifies a person.
+    \item Review Panel\\
+    A panel that assigns complaints to each user who is an employee and gives 
+    it the option to accept and reject the complaint.
+    \item Complaint Panel \\
+    Query panel that allows people to add complaints opposing the penalty.
 \end{itemize}
-fuckit
-\\\\
 
+\subsubsection*{Sequence Diagram}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{img/Sequence Diagram.png}    
+    \caption{Sequence Diagram}
+\end{figure}
+
+\noindent Diagram given in Figure 2 describes all the possible sequences that can exist while 
+operating the software system.
+
+\subsubsection*{State Diagrams}
+Below are the state diagrams of the more important processes of the 
+software system. These conatin complaint, payment, review and sensing itself.\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{img/State Diagram1.png}    
+    \caption{Complaint State Diagram}
+\end{figure}
+
+\noindent The decisions that takes place in Figure 3 are the identification 
+of validity of the complaint and checking if complaint already exists, 
+else the process is straight forward.\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{img/State Diagram2.png}    
+    \caption{Review State Diagram}
+\end{figure}
+
+\noindent The decision that takes place in Figure 4 is the verification of the fact 
+that the person accessing the panel is an employee.\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{img/State Diagram3.png}    
+    \caption{Payment State Diagram}
+\end{figure}
+
+\noindent The decision that takes place in Figure 5 is the conformation from the 
+bank is the status of transaction.\\ 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{img/State Diagram4.png}    
+    \caption{Sensor State Diagram}
+\end{figure}
+
+\noindent The decision that takes place in Figure 6 is if the sensor does detect 
+a person or a vehicle.
+\section*{Conclusion and Future Work}
 This is the significant part of your research paper, where you design the 
 software system and explain its overall architecture. You should explain 
 the pipeline of your system, about the various interactions between the model, 
@@ -179,7 +243,6 @@ class diagrams. You should present a nice blueprint of your system and convince
 the reader that it’s an effective system and would have a high probability of 
 succeeding in the real world.
 
-\section*{Conclusion and Future Work}
 Conclude well and summarise your solution in 3-4 sentences. 
 Talk about future work and how things can be improved in the coming times.
 
