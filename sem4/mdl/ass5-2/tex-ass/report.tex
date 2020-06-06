@@ -1,0 +1,146 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{alltt}
+\usepackage{amssymb}
+\usepackage{chemfig}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{paralist}
+\usepackage{tcolorbox}
+\usepackage{braket}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{esint}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\title{MDL Assignment 5}
+\date{Part 2}
+\author{Kalp Shah : 2018113003}
+
+\setlength{\columnsep}{20pt}
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+
+\section*{Question 1}
+If you know the target is in (1,1) cell and your observation is o6 , what will be
+the initial belief state? Please submit the optimal policy file named
+(RollNumber).policy for the POMDP taking into account the initial belief
+state you obtained.
+\section*{Answer 1}
+Answer is in the policy file
+
+\section*{Question 2}
+If you are in (0,1) and you know the target is in your one neighborhood and
+is not making a call what is your initial belief state?
+\section*{Answer 2}
+Given : \\
+\hspace*{23pt} Call : Off\\
+\hspace*{23pt} Agent Coordinates : (0,1)\\
+\hspace*{23pt} Possible Target Coordinates : (0,1), (0,0), (1,1) or (2,0)\\\\
+The only quantitiy that changes is the Target Coordinates.\\\\
+$\therefore$ For the system with Agent at (0,1) and Call : Off, the 
+probabilities are as follows :
+\begin{itemize}
+    \item Target (0,1)\\ \hspace*{23pt} P(E) = 0.25
+    \item Target (0,0)\\ \hspace*{23pt} P(E) = 0.25
+    \item Target (1,1)\\ \hspace*{23pt} P(E) = 0.25
+    \item Target (2,0)\\ \hspace*{23pt} P(E) = 0.25
+\end{itemize}
+Where E $\equiv$ Given Event
+
+\section*{Question 3}
+What is the expected utility for initial belief states in questions 1 and 2?
+\section*{Answer 3}
+The expected utility is :
+\begin{itemize}
+    \item Question 1\\ \hspace*{23pt} Utility = 1.045
+    \item Question 2\\ \hspace*{23pt} Utility = 3.267
+\end{itemize}
+
+\section*{Question 4}
+If your agent is in (0,1) with probability 0.6 and in (2,1) with probability 0.4
+and the target is in the 4 corner cells with equal probability, which
+observation are you most likely to observe? Explain.
+\section*{Answer 4}
+Given : \\
+\hspace*{23pt} Agent : P(S = (0,1)) = 0.6 , P(S = (2,1)) = 0.4\\
+\hspace*{23pt} Target : (0,0), (0,2), (2,0) or (2,2)
+\\\\
+All probabilities are initially 0, hence :
+\begin{equation*}
+    P(O_i) = 0, \forall i \in [0,6]
+\end{equation*}
+
+\noindent$\therefore$ For Agent at (0,1), the probabilities are :
+\begin{itemize}
+    \item Target (0,0)\\ \hspace*{23pt} P($O_4$) += 0.6 * 0.25\\ \hspace*{52pt} += 0.15
+    \item Target (0,2)\\ \hspace*{23pt} P($O_2$) += 0.6 * 0.25\\ \hspace*{52pt} += 0.15
+    \item Target (2,0)\\ \hspace*{23pt} P($O_6$) += 0.6 * 0.25\\ \hspace*{52pt} += 0.15
+    \item Target (2,2)\\ \hspace*{23pt} P($O_6$) += 0.6 * 0.25\\ \hspace*{52pt} += 0.15
+\end{itemize}
+
+\noindent$\therefore$ For Agent at (2,1), the probabilities are :
+\begin{itemize}
+    \item Target (0,0)\\ \hspace*{23pt} P($O_6$) += 0.4 * 0.25\\ \hspace*{52pt} += 0.10
+    \item Target (0,2)\\ \hspace*{23pt} P($O_6$) += 0.4 * 0.25\\ \hspace*{52pt} += 0.10
+    \item Target (2,0)\\ \hspace*{23pt} P($O_4$) += 0.4 * 0.25\\ \hspace*{52pt} += 0.10
+    \item Target (2,2)\\ \hspace*{23pt} P($O_2$) += 0.4 * 0.25\\ \hspace*{52pt} += 0.10
+\end{itemize}
+
+The final probabilities, thus are :\\
+    \hspace*{23pt} P($O_2$) = 0.25\\
+    \hspace*{23pt} P($O_4$) = 0.25\\
+    \hspace*{23pt} P($O_6$) = 0.50\\
+
+\noindent Hence, $max(P(O_i)) \equiv P(O_6) = 0.50$, which is believable since 
+for each agent coordinate, the probabilites remain same, but the observation 
+corrosponding to $O_6$ is twice. (Due to there being 2 target states giving 
+$O_6$) 
+
+\section*{Question 5}
+How many policy trees are obtained in this case, explain?
+\section*{Answer 5}
+No of policy trees is given by this formulae :\\
+\begin{equation*}
+    N \equiv \sum_{i = 0}^{T-1} |O|^i = \frac{|O|^T - 1}{|O| - 1}
+\end{equation*}
+\begin{equation*}
+    N_{Tree} = A^N
+\end{equation*}
+
+\noindent In the computations done above, 
+the values required in the equations are :\\
+\hspace*{23pt} T = 1000\\
+\hspace*{23pt} $|O|$ = 6\\
+\hspace*{23pt} A = 5\\
+
+\begin{align*}
+    \implies N & = \frac{6^{1000} - 1}{6 - 1}\\
+    & \equiv \frac{6^{1000}}{5}\\
+    & \rightarrow \infty
+\end{align*}
+
+\begin{align*}
+    \therefore N_{Tree} & = A^\infty\\
+    & \rightarrow \infty
+\end{align*}
+
+\noindent There are problems with this computation, as not all actions are available 
+for each observation and thus the actual value would be a little less than 
+the computed one.
+\end{document}

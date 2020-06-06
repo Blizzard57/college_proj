@@ -3,8 +3,8 @@ INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.tex
-OUTPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.log
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.tex
+OUTPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.log
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
@@ -255,9 +255,9 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.aux
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.aux
-OUTPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.aux
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.aux
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.aux
+OUTPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.aux
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
@@ -272,14 +272,14 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.out
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.out
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.out
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.out
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.out
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.out
-OUTPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.out
-OUTPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.pdf
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.out
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.out
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.out
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.out
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.out
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.out
+OUTPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.out
+OUTPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.pdf
 INPUT /usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
@@ -333,11 +333,9 @@ INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/img/State Diagram3
 INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/img/State Diagram4.png
 INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/img/State Diagram4.png
 INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/img/State Diagram4.png
-INPUT /usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
-INPUT /usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.aux
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.out
-INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/notebook.out
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.aux
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.out
+INPUT /home/blizzard/Documents/college-proj/sem4/ssad/end-sem/report.out
 INPUT /home/blizzard/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb

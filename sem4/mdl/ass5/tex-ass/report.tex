@@ -1,0 +1,191 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{alltt}
+\usepackage{amssymb}
+\usepackage{chemfig}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{paralist}
+\usepackage{tcolorbox}
+\usepackage{braket}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{esint}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\title{MDL Assignment 5}
+\date{Part 1}
+\author{Kalp Shah : 2018113003}
+
+\setlength{\columnsep}{20pt}
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+\section*{Algorithm}
+\subsection*{Definitions}
+The action update is the update that occurs when an 
+action takes place. For example, if the agent wants to take left, then 
+the action is left. Another concept is observation, that is the 
+observed result after an action takes place. For example, if the 
+agent reports that it sees Red than the observation is color being red.
+\\\\
+These are the two things that can vhange the belief state of a POMDP, 
+and it is very clear why.
+\subsection*{Formulation}
+POMDP algorithm is used, which is a MDP with belief (probability) 
+states b, which is a continuous distribution over the states S of 
+the MDP.
+\\\\
+The updates are as follows :
+\begin{itemize}
+    \item Action Update of belief system:
+    \begin{center}
+        $b'(s) = \Sigma p(s|a,s')p(s')$
+    \end{center}
+    but b(s) = p(s), hence :
+    \begin{center}
+        $b'(s) = \Sigma p(s|a,s')b(s')$
+    \end{center}
+
+    \item Observation Update of belief system:
+    \begin{center}
+        $b'(s) = p(s|o,b)$
+        $b'(s) = \frac{p(o|s)b(s)}{\Sigma p(o,s')b(s')}$
+    \end{center}
+\end{itemize} 
+These equations can be then combined to form :
+\begin{center}
+    $b(s') = p(s|o,a,b)$\\
+    $\implies b(s') = \frac{p(s|a,b)p(o|s,a,b)}{p(o|b)}$
+\end{center}
+The final equation is the one that will be used to solve the problem.
+
+\section*{Solution}
+\subsection*{Global Values}
+Roll No : 2018113003\\\\
+$\implies$ x = 1 - (3\%40 + 1)/100\\
+        \hspace*{28pt}    = .96
+\\\\
+$\implies$ y = (3) \% 3\\
+\hspace*{28pt} = 0\\\\ 
+$\therefore$ Table 0 is to be taken\\\\
+\begin{tabular}{|c|c|}
+    \hline
+    p(O=Red|S=Red) & 0.9\\
+    \hline
+    p(O=Green|S=Green) & 0.85\\
+    \hline
+\end{tabular}
+
+\subsection*{Initialization}
+Initially, the agent can be at any one of the three Red states, hence the initial 
+beliefs are :\\\\
+\begin{tabular}{|c|c|}
+    \hline
+    b($S_1$) & 1/3\\
+    \hline
+    b($S_2$) & 1/3\\
+    \hline
+    b($S_3$) & 0\\
+    \hline
+    b($S_4$) & 0\\
+    \hline
+    b($S_2$) & 1/3\\
+    \hline
+\end{tabular}
+
+\subsection*{Actions and Observations}
+\subsubsection*{Action = Right \& Observation = Red}
+First calculating belief after \textbf{Action = Right}\\
+Formulae : $b(s') = \Sigma b(s')p(s|a,s')$\\\\
+$b(S_1)$ =  0.333*0.04 + 0.333*0.04
+\\ \hspace*{23pt} = 0.027\\\\
+$b(S_2)$ =  0.333*0.96 + 0.000*0.04
+\\ \hspace*{23pt} = 0.320\\\\
+$b(S_3)$ =  0.333*0.96 + 0.000*0.04 
+\\ \hspace*{23pt} = 0.320\\\\
+$b(S_4)$ = 0.000*0.96 + 0.333*0.04 
+\\ \hspace*{23pt} = 0.013\\\\
+$b(S_5)$ =  0.000*0.96 + 0.333*0.96 
+\\ \hspace*{23pt} = 0.320\\
+
+\noindent Now, belief after \textbf{observation = Red}\\
+Formulae = $b(s') = \frac{p(o|s)*b(s)}{\Sigma b(s')p(o|s')}$\\
+\hspace*{74pt} = $\frac{p(o|s)*b(s)}{0.650}$\\
+
+\noindent$b'(S_1)$ = $\frac{0.027*0.900}{0.650} = 0.037$\\\\
+$b'(S_2)$ = $\frac{0.320*0.900}{0.650} = 0.443$\\\\
+$b'(S_3)$ = $\frac{0.320*0.150}{0.650} = 0.074$\\\\
+$b'(S_4)$ = $\frac{0.013*0.150}{0.650} = 0.003$\\\\
+$b'(S_5)$ = $\frac{0.320*0.900}{0.650} = 0.443$\\\\
+
+\subsubsection*{Action = Left \& Observation = Green}
+First calculating belief after \textbf{Action = Left}\\
+Formulae : $b(s') = \Sigma b(s')p(s|a,s')$\\\\
+$b(S_1)$ =  0.037*0.96 + 0.443*0.96\\ \hspace*{23pt} = 0.461\\\\
+$b(S_2)$ =  0.037*0.04 + 0.074*0.96\\ \hspace*{23pt} = 0.072\\\\
+$b(S_3)$ =  0.443*0.04 + 0.003*0.96\\ \hspace*{23pt} = 0.021\\\\
+$b(S_4)$ =  0.074*0.04 + 0.443*0.96\\ \hspace*{23pt} = 0.428\\\\
+$b(S_5)$ =  0.003*0.04 + 0.443*0.04\\ \hspace*{23pt} = 0.018\\
+
+\noindent Now, belief after \textbf{observation = Green}\\
+Formulae = $b(s') = \frac{p(o|s)*b(s)}{\Sigma b(s')p(o|s')}$\\
+\hspace*{74pt} = $\frac{p(o|s)*b(s)}{0.437}$\\
+
+\noindent $b'(S_1)$ = $\frac{0.461*0.100}{0.437} = 0.106$\\\\
+$b'(S_2)$ = $\frac{0.072*0.100}{0.437} = 0.017$\\\\
+$b'(S_3)$ = $\frac{0.021*0.850}{0.437} = 0.040$\\\\
+$b'(S_4)$ = $\frac{0.428*0.850}{0.437} = 0.834$\\\\
+$b'(S_5)$ = $\frac{0.018*0.100}{0.437} = 0.004$\\\\
+
+\subsubsection*{Action = Left \& Observation = Green}
+First calculating belief after \textbf{Action = Left}\\
+Formulae : $b(s') = \Sigma b(s')p(s|a,s')$\\\\
+$b(S_1)$ =  0.106*0.96 + 0.017*0.96\\ \hspace*{23pt} = 0.117\\\\
+$b(S_2)$ =  0.106*0.04 + 0.040*0.96\\ \hspace*{23pt} = 0.043\\\\
+$b(S_3)$ =  0.017*0.04 + 0.834*0.96\\ \hspace*{23pt} = 0.801\\\\
+$b(S_4)$ =  0.040*0.04 + 0.004*0.96\\ \hspace*{23pt} = 0.006\\\\
+$b(S_5)$ =  0.834*0.04 + 0.004*0.04\\ \hspace*{23pt} = 0.034\\
+
+\noindent Now, belief after \textbf{observation = Green}\\
+Formulae = $b(s') = \frac{p(o|s)*b(s)}{\Sigma b(s')p(o|s')}$\\
+\hspace*{74pt} = $\frac{p(o|s)*b(s)}{0.705}$\\
+
+\noindent $b'(S_1)$ = $\frac{0.117*0.100}{0.705} = 0.017$\\\\
+$b'(S_2)$ = $\frac{0.043*0.100}{0.705} = 0.006$\\\\
+$b'(S_3)$ = $\frac{0.801*0.850}{0.705} = 0.966$\\\\
+$b'(S_4)$ = $\frac{0.006*0.850}{0.705} = 0.007$\\\\
+$b'(S_5)$ = $\frac{0.034*0.100}{0.705} = 0.005$\\\\
+
+\section*{Result}
+Hence, after these calculations, the final result is :\\\\
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    Belief & Update 1 & Update 2 & Update 3\\
+    \hline
+    b($S_1$) & 0.037 & 0.106 & 0.017\\
+    \hline
+    b($S_2$) & 0.443 & 0.017 & 0.006\\
+    \hline
+    b($S_3$) & 0.074 & 0.040 & 0.966\\
+    \hline
+    b($S_4$) & 0.003 & 0.834 & 0.004\\
+    \hline
+    b($S_2$) & 0.443 & 0.004 & 0.005\\
+    \hline
+\end{tabular}
+\end{document}
