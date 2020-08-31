@@ -17,6 +17,7 @@ The requirements are :
 
 - Basic Functionality
 - Multiline strings and ENV varibles not required
+- Excess spacing should be removed
 
 The code is written by : Kalp Shah
 

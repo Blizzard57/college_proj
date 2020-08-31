@@ -33,6 +33,21 @@ long size;
 char *buf;
 char *ptr;
 
+void logical_pwd(){
+    // Logical PWD (Respects Symlinks)
+    size = pathconf(".", _PC_PATH_MAX);
+
+    if ((buf = (char *)malloc((size_t)size)) != NULL)
+        ptr = getcwd(buf, (size_t)size);
+
+    printf("%s",ptr);
+    printf("\n");
+}
+
+void physical_pwd(){
+    // Physical PWD (Avoids Symlinks)
+}
+
 int main(int argc,char **argv){
     // Arguments Required : command -flag -> 2
     if(argc > 2){
@@ -40,19 +55,12 @@ int main(int argc,char **argv){
         return 0;
     }
 
-    if((argc == 1) || (argc == 2 && (strcmp(argv[1],"-L") || strcmp(argv[1],"--logical")))){
-
-        size = pathconf(".", _PC_PATH_MAX);
-
-        if ((buf = (char *)malloc((size_t)size)) != NULL)
-            ptr = getcwd(buf, (size_t)size);
-
-        printf("%s",ptr);
-        printf("\n");
+    if((argc == 2 && (strcmp(argv[1],"-L") || strcmp(argv[1],"--logical")))){
+        logical_pwd();
     }
 
-    else if(strcmp(argv[1],"-P") || strcmp(argv[1],"--physical")){
-        
+    else if((argc == 1) || (strcmp(argv[1],"-P") || strcmp(argv[1],"--physical"))){
+        physical_pwd();
     }
 
     return 0;
