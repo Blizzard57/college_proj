@@ -17,8 +17,8 @@ Requirements :
     -L, --logical
         environemnt PWD, symlinks respected
 
-    -P, --physical
-        Avoid symlinks
+    -P, --physical : Default Option
+        Resolves symlinks
 
 The code is written by : Kalp Shah
 
@@ -33,8 +33,8 @@ long size;
 char *buf;
 char *ptr;
 
-void logical_pwd(){
-    // Logical PWD (Respects Symlinks)
+void physical_pwd(){
+    // Physical PWD (Resolves Symlinks)
     size = pathconf(".", _PC_PATH_MAX);
 
     if ((buf = (char *)malloc((size_t)size)) != NULL)
@@ -44,24 +44,27 @@ void logical_pwd(){
     printf("\n");
 }
 
-void physical_pwd(){
-    // Physical PWD (Avoids Symlinks)
+void logical_pwd(){
+    // Logical PWD (Respects Symlinks)
+    ptr = getenv("PWD");
+    printf("%s",ptr);
+    printf("\n");
 }
 
 int main(int argc,char **argv){
     // Arguments Required : command -flag -> 2
     if(argc > 2){
-        perror("Error : Excess Arguments");
+        perror("pwd : too many arguments");
         return 0;
     }
 
-    if((argc == 2 && (strcmp(argv[1],"-L") || strcmp(argv[1],"--logical")))){
+    if((argc == 2 && (strcmp(argv[1],"-L") == 0 || strcmp(argv[1],"--logical") == 0)))
         logical_pwd();
-    }
 
-    else if((argc == 1) || (strcmp(argv[1],"-P") || strcmp(argv[1],"--physical"))){
+    else if((argc == 1) || (strcmp(argv[1],"-P") == 0 || strcmp(argv[1],"--physical") == 0))
         physical_pwd();
-    }
 
+    else
+        printf("pwd : unrecognised option '%s'\n",argv[1]);
     return 0;
 }
