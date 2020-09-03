@@ -38,8 +38,10 @@ The code is written by : Kalp Shah
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include<dirent.h>
-
+#include <dirent.h>
+#include <pwd.h>
+#include <grp.h>
+#include <time.h>
 
 /*
 
@@ -65,19 +67,23 @@ TODO : Color coding of ls output (Optional)
 
 */
 
+#define ll long long
+
 #define FILE_LENGTH 2000
+#define NAME_LENGTH 200
 
 int find_perm(char *ans, char *filename){
-
+    /* finds the rwx permissions for user, group and others */
     struct stat file_stat;
     if (stat(filename, &file_stat) < 0){
-        perror("Could not stat file");
+        fprintf(stderr,"ls : connot access %s\n",filename);
         return 1;
     }
-    /* Checking if the given file is a directory */
+    /* checking if the given file is a directory */
     if(S_ISDIR(file_stat.st_mode))
         ans[0] = 'd';
 
+    /* finding permissions for user */
     if(file_stat.st_mode & S_IRUSR)
         ans[1] = 'r';
     if(file_stat.st_mode & S_IWUSR)
@@ -85,6 +91,7 @@ int find_perm(char *ans, char *filename){
     if(file_stat.st_mode & S_IXUSR)
         ans[3] = 'x';
     
+    /* finding permissions for group */
     if(file_stat.st_mode & S_IRGRP)
         ans[4] = 'r';
     if(file_stat.st_mode & S_IWGRP)
@@ -92,6 +99,7 @@ int find_perm(char *ans, char *filename){
     if(file_stat.st_mode & S_IXGRP)
         ans[6] = 'x';
 
+    /* finding permissions for other */
     if(file_stat.st_mode & S_IROTH)
         ans[7] = 'r';
     if(file_stat.st_mode & S_IWOTH)
@@ -102,16 +110,92 @@ int find_perm(char *ans, char *filename){
     return 0;
 }
 
+ll int find_filesize(char *filename){
+    /* find size of file in bytes */
+    int file = open(filename,O_RDONLY);
+    if(file < 0){
+        fprintf(stderr,"ls : cannot access %s\n", filename);
+        return -1;
+    }
+    ll int size = lseek(file,0,SEEK_END);
+    return size;
+}
+
+int find_owner(char *owner,char *group, char *filename){
+    /* find owner and group of a file */
+    struct stat file_stat;
+    if (stat(filename, &file_stat) < 0){
+        fprintf(stderr,"ls : cannot access %s\n", filename);
+        return 1;
+    }
+    struct passwd *pwd = getpwuid(file_stat.st_uid);
+    struct group  *grp = getgrgid(file_stat.st_gid);
+
+    if(pwd == 0 || grp == 0){
+        fprintf(stderr,"ls : cannot access %s\n", filename);
+        return 1;
+    }
+
+    strcpy(owner,pwd->pw_name);
+    strcpy(group,grp->gr_name);
+    return 0;
+}
+
+int find_hardlinks(char *filename){
+    struct stat file_stat;
+    if (stat(filename, &file_stat) < 0){
+        fprintf(stderr,"ls : cannot access %s\n", filename);
+        return -1;
+    }
+    return file_stat.st_nlink;
+}
+
+int find_mod_date(char *month,char *date,char *time, char *filename){
+    /* find modification date, month and time */
+    struct stat file_stat;
+    if (stat(filename, &file_stat) < 0){
+        fprintf(stderr,"ls : cannot access %s\n", filename);
+        return 1;
+    }
+    strftime(month, sizeof(month), "%b", localtime(&(file_stat.st_mtime)));
+    strftime(time, sizeof(time), "%H:%M",localtime(&(file_stat.st_mtime)));
+    strftime(date, sizeof(date), "%d",localtime(&(file_stat.st_mtime)));
+    return 0;
+}
+
+int find_maxlength(int max,int val){
+    /* returns max(val1,val2) */
+    if(max > val)
+        return max;
+    return val;
+}
+
 int list(char *dir, short bool_a,short bool_l){
     struct dirent **namelist;
     int no_of_files;
 
     no_of_files = scandir(dir,&namelist,0,alphasort);
     if(no_of_files < 0){
-        perror("scandir");
-        return 0;
+        perror("ls");
+        return 1;
     }
     if(bool_l){
+        int max_owner = 0,max_group = 0;
+        for(int i=0;i<no_of_files;i++){
+            char *filename = (char *)malloc((strlen(dir) + strlen(namelist[i] -> d_name) + 2)*sizeof(char));
+            strcpy(filename,dir);
+            strcat(filename,"/");
+            strcat(filename,namelist[i] -> d_name);
+
+            char owner[NAME_LENGTH];
+            char group[NAME_LENGTH];
+            if(find_owner(owner,group,filename))
+                continue;
+
+            max_owner = find_maxlength(max_owner,strlen(owner));
+            max_group = find_maxlength(max_group,strlen(group));
+        }
+
         for(int i=0;i<no_of_files;i++){
             if(bool_a == 0 && namelist[i] -> d_name[0] == '.')
                 continue;
@@ -123,9 +207,58 @@ int list(char *dir, short bool_a,short bool_l){
             strcat(filename,"/");
             strcat(filename,namelist[i] -> d_name);
 
+            /* individual elements are modified in the find_perm function, 
+               hence perm is given as a char array and not a string */
             char perm[11] = {'-','-','-','-','-','-','-','-','-','-','\0'}; 
-            find_perm(perm, filename);
-            printf("%s %s\n",perm,namelist[i] -> d_name);
+            if(find_perm(perm, filename))
+                continue;
+
+            /* finding number of hardlinks */
+            int hard_links = find_hardlinks(filename);
+            if(hard_links == -1)
+                continue;
+
+            /* finding owner and group */
+            char owner[NAME_LENGTH];
+            char group[NAME_LENGTH];
+            if(find_owner(owner,group,filename))
+                continue;
+
+            /* finding filesize */
+            float size = 4.0; // Default size for directories
+            char suffix = 'B'; // Suffix for KB,MB and GB
+            short no_of_mults = 0;
+            
+            /* dividing the filesize by 1024 
+               to find the size in MB,GB,etc */
+            if(perm[0] != 'd'){
+                size = find_filesize(filename);
+                if(size == -1)
+                    continue;
+                while(size > 1024){
+                    size/=1024;
+                    no_of_mults++;
+                }
+            }
+            else
+                no_of_mults = 1;
+
+            /* finding the suffix of filesize */
+            if(no_of_mults == 1)
+                suffix = 'K'; /* kilobytes */
+            else if(no_of_mults == 2)
+                suffix = 'M'; /* megabytes */
+            else if(no_of_mults == 3)
+                suffix = 'G'; /* gigabytes */
+            else if(no_of_mults == 4)
+                suffix = 'T'; /* terabytes */
+            
+            /* finding the modification date */
+            char month[4], date[4], time[6];
+            if(find_mod_date(month,date,time,filename))
+                continue;
+
+            printf("%s %3d %-*s %-*s %7.2lf%c %3s %2s %s %s\n",perm,hard_links,max_owner,owner,max_group,group,size,suffix,month,date,time,namelist[i] -> d_name);
             free(namelist[i]);
         }
         free(namelist);
@@ -203,6 +336,5 @@ int main(int argc, char **argv){
                 printf("\n");
         }
     }
-
     return 0;
 }
