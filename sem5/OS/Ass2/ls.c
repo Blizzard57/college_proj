@@ -171,17 +171,22 @@ int find_maxlength(int max,int val){
 }
 
 int list(char *dir, short bool_a,short bool_l){
+    /* does the actual listing */
     struct dirent **namelist;
     int no_of_files;
 
+    /* finds all the files inside the given directory */
     no_of_files = scandir(dir,&namelist,0,alphasort);
     if(no_of_files < 0){
         perror("ls");
         return 1;
     }
     if(bool_l){
+        /* long listing format */
         int max_owner = 0,max_group = 0;
         for(int i=0;i<no_of_files;i++){
+            /* finding maximum filesize for owner and group,
+               for proper columns */
             char *filename = (char *)malloc((strlen(dir) + strlen(namelist[i] -> d_name) + 2)*sizeof(char));
             strcpy(filename,dir);
             strcat(filename,"/");
@@ -225,7 +230,7 @@ int list(char *dir, short bool_a,short bool_l){
                 continue;
 
             /* finding filesize */
-            float size = 4.0; // Default size for directories
+            float size = 4.0;  // Default size for directories
             char suffix = 'B'; // Suffix for KB,MB and GB
             short no_of_mults = 0;
             

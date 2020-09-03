@@ -23,7 +23,7 @@ The code is written by : Kalp Shah
 
 */
 
-#include<stdio.h>
+#include <stdio.h>
 
 int main(int argc,char **argv){
     // Echo requires atleast 2 arguments to function

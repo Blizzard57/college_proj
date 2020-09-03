@@ -24,10 +24,10 @@ The code is written by : Kalp Shah
 
 */
 
-#include<stdio.h>
-#include<unistd.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
 
 long size;
 char *buf;
