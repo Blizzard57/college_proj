@@ -28,7 +28,7 @@ The code is written by : Kalp Shah
 int main(int argc,char **argv){
     // Echo requires atleast 2 arguments to function
     if(argc < 2){
-        perror("Error : Arguments Missing");
+        fprintf(stderr,"echo : arguments missing");
         return 1;
     }
 

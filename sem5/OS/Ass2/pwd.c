@@ -54,7 +54,7 @@ void logical_pwd(){
 int main(int argc,char **argv){
     // Arguments Required : command -flag -> 2
     if(argc > 2){
-        perror("pwd : too many arguments");
+        fprintf(stderr,"pwd : too many arguments");
         return 0;
     }
 

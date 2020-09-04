@@ -72,6 +72,8 @@ TODO : Color coding of ls output (Optional)
 #define FILE_LENGTH 2000
 #define NAME_LENGTH 200
 
+extern int alphasort();
+
 int find_perm(char *ans, char *filename){
     /* finds the rwx permissions for user, group and others */
     struct stat file_stat;
@@ -178,7 +180,7 @@ int list(char *dir, short bool_a,short bool_l){
     /* finds all the files inside the given directory */
     no_of_files = scandir(dir,&namelist,0,alphasort);
     if(no_of_files < 0){
-        perror("ls");
+        fprintf(stderr,"ls");
         return 1;
     }
     if(bool_l){
