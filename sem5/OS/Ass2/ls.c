@@ -72,13 +72,15 @@ TODO : Color coding of ls output (Optional)
 #define FILE_LENGTH 2000
 #define NAME_LENGTH 200
 
+#define __PROGRAM_NAME__ "ls"
+
 extern int alphasort();
 
 int find_perm(char *ans, char *filename){
     /* finds the rwx permissions for user, group and others */
     struct stat file_stat;
     if (stat(filename, &file_stat) < 0){
-        fprintf(stderr,"ls : connot access %s\n",filename);
+        fprintf(stderr,"%s : connot access %s\n",__PROGRAM_NAME__,filename);
         return 1;
     }
     /* checking if the given file is a directory */
@@ -116,7 +118,7 @@ ll int find_filesize(char *filename){
     /* find size of file in bytes */
     int file = open(filename,O_RDONLY);
     if(file < 0){
-        fprintf(stderr,"ls : cannot access %s\n", filename);
+        fprintf(stderr,"%s : cannot access %s\n",__PROGRAM_NAME__,filename);
         return -1;
     }
     ll int size = lseek(file,0,SEEK_END);
@@ -127,14 +129,14 @@ int find_owner(char *owner,char *group, char *filename){
     /* find owner and group of a file */
     struct stat file_stat;
     if (stat(filename, &file_stat) < 0){
-        fprintf(stderr,"ls : cannot access %s\n", filename);
+        fprintf(stderr,"%s : cannot access %s\n",__PROGRAM_NAME__,filename);
         return 1;
     }
     struct passwd *pwd = getpwuid(file_stat.st_uid);
     struct group  *grp = getgrgid(file_stat.st_gid);
 
     if(pwd == 0 || grp == 0){
-        fprintf(stderr,"ls : cannot access %s\n", filename);
+        fprintf(stderr,"%s : cannot access %s\n",__PROGRAM_NAME__,filename);
         return 1;
     }
 
@@ -146,7 +148,7 @@ int find_owner(char *owner,char *group, char *filename){
 int find_hardlinks(char *filename){
     struct stat file_stat;
     if (stat(filename, &file_stat) < 0){
-        fprintf(stderr,"ls : cannot access %s\n", filename);
+        fprintf(stderr,"%s : cannot access %s\n",__PROGRAM_NAME__,filename);
         return -1;
     }
     return file_stat.st_nlink;
@@ -156,7 +158,7 @@ int find_mod_date(char *month,char *date,char *time, char *filename){
     /* find modification date, month and time */
     struct stat file_stat;
     if (stat(filename, &file_stat) < 0){
-        fprintf(stderr,"ls : cannot access %s\n", filename);
+        fprintf(stderr,"%s : cannot access %s\n",__PROGRAM_NAME__,filename);
         return 1;
     }
     strftime(month, sizeof(month), "%b", localtime(&(file_stat.st_mtime)));
@@ -180,7 +182,7 @@ int list(char *dir, short bool_a,short bool_l){
     /* finds all the files inside the given directory */
     no_of_files = scandir(dir,&namelist,0,alphasort);
     if(no_of_files < 0){
-        fprintf(stderr,"ls");
+        fprintf(stderr,"%s",__PROGRAM_NAME__);
         return 1;
     }
     if(bool_l){
@@ -282,7 +284,7 @@ int list(char *dir, short bool_a,short bool_l){
     return 0;
 }
 
-int main(int argc, char **argv){
+int ls(int argc, char **argv){
     /* arguments need to be split up in flags and directories */
     short bool_l = 0, bool_a = 0; 
     char *dir[argc]; 
@@ -302,7 +304,7 @@ int main(int argc, char **argv){
         }
         
         else if(argv[i][0] == '-')
-            printf("ls : unrecognized option '%s'",argv[i]);
+            printf("%s : unrecognized option '%s'",__PROGRAM_NAME__,argv[i]);
         
         else{
             dir[dirlen] = (char *)malloc((strlen(argv[i]))*sizeof(char));
@@ -344,4 +346,9 @@ int main(int argc, char **argv){
         }
     }
     return 0;
+}
+
+int main(int argc,char **argv){
+    int ret_val = ls(argc,argv);
+    return ret_val;
 }

@@ -24,11 +24,12 @@ The code is written by : Kalp Shah
 */
 
 #include <stdio.h>
+#define __PROGRAM_NAME__ "echo"
 
-int main(int argc,char **argv){
+int echo(int argc,char **argv){
     // Echo requires atleast 2 arguments to function
     if(argc < 2){
-        fprintf(stderr,"echo : arguments missing");
+        fprintf(stderr,"%s : arguments missing",__PROGRAM_NAME__);
         return 1;
     }
 
@@ -42,4 +43,9 @@ int main(int argc,char **argv){
     printf("\n");
     
     return 0;
+}
+
+int main(int argc,char **argv){
+    int ret_val = echo(argc,argv);
+    return ret_val;
 }

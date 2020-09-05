@@ -26,6 +26,7 @@ The code is written by : Kalp Shah
 
 extern int alphasort();
 #define MAX_LENGTH 4096;
+#define __PROGRAM_NAME__ "pinfo"
 
 int check_Nan(char *str){
     int size = strlen(str);
@@ -52,11 +53,13 @@ int proc_reg(char *dirname,char *reg_str, char *prop){
     regex_t reg;
     int ret_val = regcomp(&reg,reg_str,0);
     if(ret_val)
-        fprintf(stderr,"regex compilation\n");
+        fprintf(stderr,"%s : regex compilation\n",__PROGRAM_NAME__);
 
     fp = fopen(filename, "r");
-    if (fp == NULL)
+    if (fp == NULL){
+        fprintf(stderr,"%s : cannot access %s",__PROGRAM_NAME__,filename);
         exit(EXIT_FAILURE);
+    }
 
     /* comparing the strings line by line */
     while ((read = getline(&line, &len, fp)) != -1) {
@@ -97,7 +100,7 @@ int proc_exec(char *dirname){
 
     /* stat gives detail on size of file */
     if (lstat(exec_file, &file_stat) == -1) {
-               perror("lstat");
+               fprintf(stderr,"%s : cannot stat file %s",__PROGRAM_NAME__,exec_file);
                exit(EXIT_FAILURE);
     }
 
@@ -111,7 +114,7 @@ int proc_exec(char *dirname){
     buf = (char *)malloc(bufsiz * sizeof(char));
     nbytes = readlink(exec_file, buf, bufsiz);
     if(nbytes < 0){
-        perror("readlink");
+        fprintf(stderr,"%s : readlink error",__PROGRAM_NAME__);
         exit(EXIT_FAILURE);
     }
     printf("Executable Path -- %s\n",buf);
@@ -126,7 +129,7 @@ int proc_info(pid_t process){
     /* finds all the files inside the given directory */
     no_of_files = scandir("/proc",&namelist,0,alphasort);
     if(no_of_files < 0){
-        fprintf(stderr,"pinfo");
+        fprintf(stderr,"%s : pinfo",__PROGRAM_NAME__);
         return 1;
     }
 
@@ -167,11 +170,11 @@ int proc_info(pid_t process){
     return 0;
 }
 
-int main(int argc, char **argv){
+int pinfo(int argc, char **argv){
     pid_t process;
     
     if(argc > 2){
-        fprintf(stderr,"pinfo : too many arguments\n");
+        fprintf(stderr,"%s : too many arguments\n",__PROGRAM_NAME__);
         return 1;
     }
     else if(argc == 1){
@@ -186,6 +189,11 @@ int main(int argc, char **argv){
     }
     
     if(proc_info(process))
-        fprintf(stderr,"pinfo : given process does not exist\n");
+        fprintf(stderr,"%s : given process does not exist\n",__PROGRAM_NAME__);
     return 0;
+}
+
+int main(int argc,char **argv){
+    int ret_val = pinfo(argc,argv);
+    return ret_val;
 }
