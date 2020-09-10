@@ -43,6 +43,8 @@ The code is written by : Kalp Shah
 #include <grp.h>
 #include <time.h>
 
+#include "ls.h"
+
 /*
 
 TODO : Color coding of ls output (Optional)
@@ -348,7 +350,7 @@ int ls(int argc, char **argv){
     return 0;
 }
 
-int main(int argc,char **argv){
-    int ret_val = ls(argc,argv);
-    return ret_val;
-}
+//int main(int argc,char **argv){
+//    int ret_val = ls(argc,argv);
+//    return ret_val;
+//}

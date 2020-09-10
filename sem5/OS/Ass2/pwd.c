@@ -68,8 +68,3 @@ int pwd(int argc,char **argv){
         printf("pwd : unrecognised option '%s'\n",argv[1]);
     return 0;
 }
-
-int main(int argc,char **argv){
-    int ret_val = pwd(argc,argv);
-    return ret_val;
-}

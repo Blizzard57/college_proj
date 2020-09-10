@@ -44,8 +44,3 @@ int echo(int argc,char **argv){
     
     return 0;
 }
-
-int main(int argc,char **argv){
-    int ret_val = echo(argc,argv);
-    return ret_val;
-}

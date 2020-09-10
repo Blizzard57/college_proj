@@ -178,11 +178,11 @@ int pinfo(int argc, char **argv){
         return 1;
     }
     else if(argc == 1){
-        process = getppid();
+        process = getpid();
     }
     else{
         if(check_Nan(argv[1])){
-            fprintf(stderr,"pinfo : argument %s is not a number\n",argv[1]);
+            fprintf(stderr,"%s : argument %s is not a number\n",__PROGRAM_NAME__,argv[1]);
             return 1;
         }
         process = atoi(argv[1]);
@@ -191,9 +191,4 @@ int pinfo(int argc, char **argv){
     if(proc_info(process))
         fprintf(stderr,"%s : given process does not exist\n",__PROGRAM_NAME__);
     return 0;
-}
-
-int main(int argc,char **argv){
-    int ret_val = pinfo(argc,argv);
-    return ret_val;
 }

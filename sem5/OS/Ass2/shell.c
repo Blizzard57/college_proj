@@ -25,6 +25,12 @@ Requirements :
 #include <regex.h>
 #include <sys/wait.h>
 
+#include "ls.h"
+#include "pinfo.h"
+#include "pwd.h"
+#include "echo.h"
+#include "history.h"
+
 #define __PROGRAM_NAME__ "hash"
 #define BUF_MAX 4096
 #define HOST_MAX 64
@@ -33,20 +39,26 @@ char *osname;
 char *username;
 char *home_dir;
 
-void  parse(char *line, char **argv){
+
+int  parse(char *line, char **argv){
     /* External Functions : Taken From http://www.csl.mtu.edu/cs4411.ck/www/NOTES/process/fork/exec.html */
-    while (*line != '\0') {       /* if not the end of line ....... */ 
+    int no_of_params = 0;
+    while (*line != '\0') {       /* if not the end of line */ 
         while (*line == ' ' || *line == '\t' || *line == '\n')
-            *line++ = '\0';     /* replace white spaces with 0    */
+            *line++ = '\0';     /* replace white spaces with 0 */
         
-        *argv++ = line;          /* save the argument position     */
+        /* save the argument position */
+        no_of_params++;
+        *argv++ = line;
+
         while (*line != '\0' && *line != ' ' &&  *line != '\t' && *line != '\n') 
             line++;             /* skip the argument until ...    */
-     }
-     *argv = '\0';                 /* mark the end of argument list  */
+    }
+    *argv = '\0';                 /* mark the end of argument list  */
+    return no_of_params;
 }
 
-void  execute(char **argv){
+void execute(char **argv){
      pid_t  pid;
      int    status;
 
@@ -106,6 +118,7 @@ char* pwd_cur(){
 }
 
 void pwd_home(){
+    /* find the home directory */
     long size;
     char *buf;
 
@@ -123,18 +136,7 @@ int change_dir(char *dir){
     return 0;
 }
 
-void replace_home(char **argv){
-    /* Replace ~ -> Home Dir */
-    int len = strlen(*argv);
-    for(int i=0;i<len;i++){
-        //if(strcmp(argv[i],"~") == 0){
-        //    *argv + i = home_dir;
-        //}
-        printf("Argv Values : %s\n",argv[i]);
-    }
-}
-
-int main(){
+void display_screen(){
     /* finding username */
     struct passwd *pw;
     uid_t uid;
@@ -155,7 +157,10 @@ int main(){
 
     /* find home directory ~ */
     pwd_home();
+}
 
+int main(){
+    display_screen();
     while(1){
 
         size_t bufsize = BUF_MAX;
@@ -167,19 +172,41 @@ int main(){
         printf("<%s@%s:%s>",username,osname,cur_dir);
         scanf("%[^\n]%*c", buffer);
 
-        char *argv[64];
+        add_history(buffer,username);
+
         token = strtok(buffer,";");
         while(token != NULL){
-            parse(token,argv);
-            //replace_home(argv);
-            
+
+            char *argv[64];
+            int no = parse(token,argv);
+
             /* if the command is exit */
             if(strcmp(argv[0],"exit")==0)
                 exit(0);
 
             /* if the command is cd */
-            else if(strcmp(argv[0],"cd") == 0)
+            else if(!strcmp(argv[0],"cd"))
                 change_dir(argv[1]);
+            
+            /* if the command is ls */
+            else if(!strcmp(argv[0],"ls"))
+                ls(no, argv);
+            
+            /* if the command is pinfo */
+            else if(!strcmp(argv[0],"pinfo"))
+                pinfo(no,argv);
+
+            /* if the command is echo */
+            else if(!strcmp(argv[0],"echo"))
+                echo(no,argv);
+
+            /* if the command is pwd */
+            else if(!strcmp(argv[0],"pwd"))
+                pwd(no,argv);
+
+            /* if the command is history */
+            else if(!strcmp(argv[0],"history"))
+                retrieve_history(no,argv,username);
             
             /* for every other command */
             else
