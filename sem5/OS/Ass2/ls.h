@@ -9,6 +9,6 @@ in the main shell code
 #ifndef LS_H_
 #define LS_H_
 
-int ls(int argc,char **argv);
+int ls(int argc,char **argv, char *home_dir);
 
 #endif // LS_H_

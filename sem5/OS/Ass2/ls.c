@@ -286,7 +286,7 @@ int list(char *dir, short bool_a,short bool_l){
     return 0;
 }
 
-int ls(int argc, char **argv){
+int ls(int argc, char **argv, char *homedir){
     /* arguments need to be split up in flags and directories */
     short bool_l = 0, bool_a = 0; 
     char *dir[argc]; 
@@ -309,8 +309,14 @@ int ls(int argc, char **argv){
             printf("%s : unrecognized option '%s'",__PROGRAM_NAME__,argv[i]);
         
         else{
-            dir[dirlen] = (char *)malloc((strlen(argv[i]))*sizeof(char));
-            strcpy(dir[dirlen++],argv[i]);
+            if(!strcmp(argv[i],"~")){
+                dir[dirlen] = (char *)malloc((strlen(homedir))*sizeof(char));
+                strcpy(dir[dirlen++],homedir);
+            }
+            else{
+                dir[dirlen] = (char *)malloc((strlen(argv[i]))*sizeof(char));
+                strcpy(dir[dirlen++],argv[i]);
+            }
         }
     }
     

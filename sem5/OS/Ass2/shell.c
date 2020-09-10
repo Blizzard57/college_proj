@@ -30,6 +30,7 @@ Requirements :
 #include "pwd.h"
 #include "echo.h"
 #include "history.h"
+#include "nightswatch.h"
 
 #define __PROGRAM_NAME__ "hash"
 #define BUF_MAX 4096
@@ -58,7 +59,7 @@ int  parse(char *line, char **argv){
     return no_of_params;
 }
 
-void execute(char **argv){
+void execute(char **argv,short bg_flag){
      pid_t  pid;
      int    status;
 
@@ -70,6 +71,7 @@ void execute(char **argv){
 
      /* Child does the process */
      else if (pid == 0) {
+          setpgid(0,0);
           if (execvp(*argv, argv) < 0) {     /* execute the command  */
                fprintf(stderr,"%s: unknown command %s\n",__PROGRAM_NAME__,argv[0]);
                exit(1);
@@ -77,11 +79,22 @@ void execute(char **argv){
      }
      /* Parent waits */
      else {
-         /* wait for completion */
-          while (wait(&status) != pid)
-               ;
-        int exit_status = WEXITSTATUS(status);         
-        //printf("Exit status of the child was %d\n",exit_status); 
+        if(!bg_flag){
+            signal(SIGTTIN,SIG_IGN);
+            signal(SIGTTOU,SIG_IGN);
+            setpgid(pid,0);
+            tcsetpgrp(0,__getpgid(pid));
+            int status;
+            waitpid(pid,&status,WUNTRACED);
+            tcsetpgrp(0,getpgrp());
+            signal(SIGTTIN,SIG_DFL);
+            signal(SIGTTOU,SIG_DFL);
+        }
+        else{
+            setpgid(pid,0);
+            tcsetpgrp(0,getpgrp());
+        }
+
      }
 }
 
@@ -179,6 +192,13 @@ int main(){
 
             char *argv[64];
             int no = parse(token,argv);
+            short bg_flag = 0;
+
+            if(!strcmp(argv[no-1],"&")){
+                argv[no-1] = NULL;
+                bg_flag = 1;
+                no--;
+            }
 
             /* if the command is exit */
             if(strcmp(argv[0],"exit")==0)
@@ -190,7 +210,7 @@ int main(){
             
             /* if the command is ls */
             else if(!strcmp(argv[0],"ls"))
-                ls(no, argv);
+                ls(no, argv,home_dir);
             
             /* if the command is pinfo */
             else if(!strcmp(argv[0],"pinfo"))
@@ -207,10 +227,13 @@ int main(){
             /* if the command is history */
             else if(!strcmp(argv[0],"history"))
                 retrieve_history(no,argv,username);
+
+            else if(!strcmp(argv[0],"nightswatch"))
+                nightswatch(no,argv);
             
             /* for every other command */
             else
-                execute(argv);
+                execute(argv,bg_flag);
             token = strtok(NULL,";");
         }
     }
