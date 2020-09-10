@@ -178,7 +178,7 @@ int pinfo(int argc, char **argv){
         return 1;
     }
     else if(argc == 1){
-        /* find pid of the shell */
+        process = getppid();
     }
     else{
         if(check_Nan(argv[1])){
