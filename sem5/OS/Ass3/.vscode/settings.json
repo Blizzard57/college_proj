@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
+        "inred",
+        "kjobs",
         "osname"
-    ]
+    ],
+    "files.associations": {
+        "cctype": "c"
+    }
 }
