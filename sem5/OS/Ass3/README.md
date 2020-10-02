@@ -15,3 +15,7 @@ My shell is names hash, and does most of what was expected. The last requirement
 ## Coding style
 
 The code was initially written by having each of them as sperate executables but was later changed and added to header files to be added to the shell function itself. The makefile is a simple gcc of all files with not a lot optimization done.
+
+# Codes
+
+All the functions that require the inbuilt functions of shell itself are withing the main file, others are in their respective files

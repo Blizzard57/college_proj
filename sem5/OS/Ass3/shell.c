@@ -379,28 +379,34 @@ int redirection(int no,char **argv,int bg_flag,char *token){
                 fprintf(stderr,"%s : no file entered at redirection >>\n",__PROGRAM_NAME__);
                 return -1; // Return Code for Error
             }
-            appred = open(argv[i+1],  O_WRONLY | O_TRUNC | O_CREAT | O_APPEND, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+            appred = open(argv[i+1],  O_CREAT | O_RDWR | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH );
             app_flag = 1;
         }
     }
 
     if(in_flag == 0 && out_flag == 0 && app_flag == 0)
-        return 0;
+        return 1;
 
     int old_stdin = dup(STDIN_FILENO);
     int old_stdout = dup(STDOUT_FILENO);
 
-    if(inred != 0)
+    if(in_flag != 0){
         dup2(inred,0);
+        close(inred);
+    }
     
-    if(outred != 0)
+    if(out_flag != 0){
         dup2(outred,1);
-    else if(appred != 0)
+        close(outred);
+    }
+    else if(app_flag != 0){
         dup2(appred,1);
+        close(appred);
+    }
 
     for(int i=0;i< no;i++){
-        if(argv[i] == "<" || argv[i] == ">" || argv[i] == ">>"){
-            printf("Here \n");
+        if(!strcmp(argv[i],"<") || !strcmp(argv[i],">") || !strcmp(argv[i],">>")){
+            argv[i] = NULL;
             command_exec(i-1,argv,bg_flag);
             break;
         }
@@ -409,7 +415,7 @@ int redirection(int no,char **argv,int bg_flag,char *token){
     dup2(old_stdin,0);
     dup2(old_stdout,1);
 
-    return 1;
+    return 0;
 }
 
 void sigC() {
@@ -456,8 +462,8 @@ int main(){
                 no--;
             }
 
-            //if(redirection(no,argv,bg_flag,red_tok))
-            command_exec(no,argv,bg_flag);
+            if(redirection(no,argv,bg_flag,red_tok) > 0)
+                command_exec(no,argv,bg_flag);
             token = strtok(NULL,";");
         }
         fflush(stdout);
