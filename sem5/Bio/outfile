@@ -1,0 +1,40 @@
+
+Amino acid sequence Maximum Likelihood method, version 3.697
+
+Jones-Taylor-Thornton model of amino acid change
+
+
+  +QJQ83441.1
+  |  
+  |                            +----AIA62311.1
+  |     +----------------------4  
+  |  +--3                      +--AHX37559.1
+  |  |  |  
+  1--2  +-QIA48624.1
+  |  |  
+  |  +---AVP78043.1
+  |  
+  +6XDC_A    
+
+
+remember: this is an unrooted tree!
+
+Ln Likelihood = -1609.28911
+
+ Between        And            Length      Approx. Confidence Limits
+ -------        ---            ------      ------- ---------- ------
+
+     1          6XDC_A            0.00010     (     zero,    infinity)
+     1          QJQ83441.1        0.00387     (     zero,     0.01147) *
+     1             2              0.01629     (     zero,     0.03340) **
+     2             3              0.04839     (  0.01742,     0.07935) **
+     3             4              0.38811     (  0.29780,     0.47844) **
+     4          AIA62311.1        0.07600     (  0.03847,     0.11355) **
+     4          AHX37559.1        0.03945     (  0.00924,     0.06966) **
+     3          QIA48624.1        0.03826     (  0.00905,     0.06748) **
+     2          AVP78043.1        0.06713     (  0.03494,     0.09931) **
+
+     *  = significantly positive, P < 0.05
+     ** = significantly positive, P < 0.01
+
+
