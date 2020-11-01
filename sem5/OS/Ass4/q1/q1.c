@@ -6,6 +6,12 @@
 #include <unistd.h>
 #include <wait.h>
 #include <time.h>
+#include <pthread.h>
+
+typedef struct{
+    int *arr;
+    int left,right;
+}args;
 
 void merge(int a[], int beg, int mid, int end) {      
     
@@ -89,22 +95,54 @@ int concurrent_mergeSort(int arr[],int start,int end){
     return 0;
 }
 
-void mergeSort(int arr[], int l, int r)  
-{  
+void normal_mergeSort(int arr[], int l, int r)  {  
     if (l < r) {  
         int m = l + (r - l) / 2;  
   
-        mergeSort(arr, l, m);  
-        mergeSort(arr, m + 1, r);  
+        normal_mergeSort(arr, l, m);  
+        normal_mergeSort(arr, m + 1, r);  
   
         merge(arr, l, m, r);  
     }  
-}  
+}
+
+void *thread_mergesort(void *arg){
+    args *val = (args *)arg;
+    int len = (val->right - val->left + 1);
+    if(len <= 5){
+        insertionSort(val->arr+val->left,len);
+        return 0;
+    }
+
+    args *arg1 = (args *)malloc(sizeof(args));
+    arg1->arr = val->arr;
+    arg1->left = val->left;
+    arg1->right = val->left + (val->right - val->right)/2;
+
+    args *arg2 = (args *)malloc(sizeof(args));
+    arg2->arr = val->arr;
+    arg2->left = val->left + (val->right - val->right)/2 + 1;
+    arg2->right = val->right;
+    
+    pthread_t l_half,r_half;
+    pthread_create(&l_half,NULL,thread_mergesort,(void *)arg1);
+    pthread_create(&r_half,NULL,thread_mergesort,(void *)arg2);
+
+    pthread_join(l_half,NULL);
+    pthread_join(r_half,NULL);
+
+    merge(val->arr,val->left,val->left + (val->right - val->right)/2,val->right);
+    //return;
+}
 
 void printArray(int arr[],int size){
     for(int i=0;i<size;i++)
         printf("%d ",arr[i]);
     printf("\n");
+}
+
+void fillData(int arr[],int arr_size){
+    for(int i=0;i<arr_size;i++) arr[i] = rand() % 10000;
 }
 
 int main(){
@@ -130,6 +168,11 @@ int main(){
     for(int i=0;i<arr_size;i++)
         scanf("%d",&arr[i]);
 
+    int template_arr[arr_size];
+    for(int i=0;i<arr_size;i++) template_arr[i] = arr[i];
+
+    //fillData(arr,arr_size);
+
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
 
@@ -147,11 +190,11 @@ int main(){
 
     int brr[arr_size];
     for(int i=0;i<arr_size;i++)
-        brr[i] = arr[i];
+        brr[i] = template_arr[i];
 
     st = ts.tv_nsec/(1e9)+ts.tv_sec;
 
-    mergeSort(brr,0,arr_size-1);
+    normal_mergeSort(brr,0,arr_size-1);
     printf("\nRunning normal mergesort for n = %d\n", arr_size);
     printf("The sorted array is :\n");
     printArray(brr,arr_size);
@@ -160,6 +203,16 @@ int main(){
     en = ts.tv_nsec/(1e9)+ts.tv_sec;
     printf("time = %Lf\n", en - st);
     long double t2 = en - st;
+
+    args *arg = (args *)malloc(sizeof(args));
+    arg->arr = (int *)malloc(arr_size*sizeof(int));
+    for(int i=0;i<arr_size;i++) arg->arr[i] = template_arr[i];
+    arg->left = 0;
+    arg->right = arr_size - 1;
+    pthread_t main_id;
+    pthread_create(&main_id,NULL,thread_mergesort,(void *)arg);
+    printf("The threaded mergesort gave the following result\n");
+    printArray(arg->arr,arr_size);
 
     printf("The normal mergesort is %Lf times quicker than concurrent mergesort\n",t2/t1);
     
