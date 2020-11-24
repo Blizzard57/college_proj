@@ -1,0 +1,156 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <arpa/inet.h>
+
+#define SIZE 1024
+#define BUF_MAX 4096
+
+int  parse(char *line, char **argv){
+    /* External Functions : Taken From http://www.csl.mtu.edu/cs4411.ck/www/NOTES/process/fork/exec.html */
+    int no_of_params = 0;
+    while (*line != '\0') {       /* if not the end of line */ 
+        while (*line == ' ' || *line == '\t' || *line == '\n')
+            *line++ = '\0';     /* replace white spaces with 0 */
+        
+        /* save the argument position */
+        no_of_params++;
+        *argv++ = line;
+
+        while (*line != '\0' && *line != ' ' &&  *line != '\t' && *line != '\n') 
+            line++;             /* skip the argument until ...    */
+    }
+    *argv = '\0';                 /* mark the end of argument list  */
+    return no_of_params;
+}
+
+int understand_param(char *param){
+    if(strcmp("exit",param) == 0){
+        printf("[+]Exiting the program.\n");
+        return -1;
+    }
+    else if(strcmp("get",param) == 0)
+        return 0;
+    
+    return 1;
+}
+
+int write_file(char *filename, int sockfd)
+{
+    long filesize;
+    char buffer[SIZE];
+    char *filewrite = (char *)calloc(sizeof(char),sizeof(filename) + sizeof(".client"));
+    strcat(filewrite,filename);
+    strcat(filewrite,".client");
+
+    if(recv(sockfd,buffer,SIZE,0) == 0){
+        printf("[-]Could not find out filesize.\n");
+        return 1;
+    }
+
+    filesize = strtol(buffer,NULL,10);
+    printf("[+]Filesize successfully received : %ld.\n",filesize/SIZE);
+
+    if(filesize < 0){
+        printf("[+]File not found.\n");
+        return 1;
+    }
+
+    FILE *fp = fopen(filewrite,"w");
+    printf("[+]Receiving file : %s\n",filename);
+    int counter = 0;
+    while(1){
+        int num = read(sockfd, buffer, SIZE);
+        counter += num;
+        //printf("Progress : %.2f%%.\n",i*SIZE*100.0/(double)filesize);
+        printf("\n\nThe value of num is : %d\n\n",num);
+        //printf("%s",buffer);
+        fprintf(fp,"%s",buffer);
+        bzero(buffer,SIZE);
+        if(counter>=filesize)
+            break;
+    }
+    printf("Progress : 100.00%%.\n");
+    fclose(fp);
+    
+    printf("[+]File received successfully.\n");
+    free(filewrite);
+    return 0;
+}
+
+void send_filename(char *filename, int sockfd)
+{
+    int n;
+    char data[SIZE] = {0};
+
+    if (send(sockfd, filename, sizeof(filename), 0) == -1)
+    {
+        perror("[-]Error in sending filename.");
+        exit(1);
+    }
+    bzero(data, SIZE);
+    printf("[+]Filename sent successfully.\n");
+}
+
+int main(int argc, char **argv){
+    
+    char *ip = "127.0.0.1";
+    int port = 8080;
+    int e;
+
+    int sockfd;
+    struct sockaddr_in server_addr;
+    FILE *fp;
+
+    while(1){
+        sockfd = socket(AF_INET, SOCK_STREAM, 0);
+        if (sockfd < 0){
+            perror("[-]Error in socket");
+            exit(1);
+        }
+        
+        printf("[+]Server socket created successfully.\n");
+        server_addr.sin_family = AF_INET;
+        server_addr.sin_port = port;
+        server_addr.sin_addr.s_addr = inet_addr(ip);
+        
+        e = connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
+        if (e == -1){
+            perror("[-]Error in socket");
+            exit(1);
+        }
+        printf("[+]Connected to Server.\n");
+
+        int no_files = 0;
+        char *argv[64];
+        char *buffer = (char *)malloc(BUF_MAX*sizeof(char));
+
+        printf("client> ");
+        scanf("%[^\n]%*c",buffer);
+
+        no_files = parse(buffer,argv);
+        int flag = understand_param(argv[0]);
+
+        if(flag == 1){
+            printf("client : command not understood\n");
+            continue;
+        }
+
+        else if(flag == -1){
+            close(sockfd);
+            exit(0);
+        }
+
+        printf("No of files are : %d\n",no_files);
+
+        for(int i=1;i<no_files;i++){
+            //send(sockfd,"0",1,0);
+            send_filename(argv[i], sockfd);
+            write_file(argv[i],sockfd);           
+        }
+        printf("[+]Closing the connection.\n");
+        close(sockfd);
+    }
+    return 0;
+}
