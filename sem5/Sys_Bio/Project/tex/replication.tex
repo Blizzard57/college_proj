@@ -1,4 +1,4 @@
-\chapter*{Original Results}
+\chapter*{Mass Action Results}
 
 This chapter contains all the analysis done 
 in the original paper and the conclusions that 
@@ -31,9 +31,9 @@ $$ \ce{X_i + E_i <=>[K_{i,1}][K_i,2] X_iE_i -> X_{i+1} + E_i}$$
 system, the equations can be rewritten as follows :
 
 \begin{align*}
-    \frac{d[X_i]}{dt} &= -K_{i,1}[X_i][X_iE_i] + K_{i,2}[X_iE_i] + K_{i-1,3}[X_{i-1}E_{i-1}] + K_{i,1}[X_i][E_i]_0\\
+    \frac{d[X_i]}{dt} &= K_{i,1}[X_i][X_iE_i] + K_{i,2}[X_iE_i] + K_{i-1,3}[X_{i-1}E_{i-1}] - K_{i,1}[X_i][E_i]_0\\
     \frac{d[E_i]}{dt} &= -K_{i,1}[X_i][X_iE_i] + (K_{i,2} + K_{i,3})[X_iE_i] + K_{i,1}[X_i][E_i]_0 \\
-    \frac{d[X_iE_i]}{dt} &= K_{i,1}[X_i][X_iE_i] - (K_{i,2} + K_{i,3})[X_iE_i] - K_{i,1}[X_i][E_i]_0
+    \frac{d[X_iE_i]}{dt} &= -K_{i,1}[X_i][X_iE_i] - (K_{i,2} + K_{i,3})[X_iE_i] + K_{i,1}[X_i][E_i]_0
 \end{align*}
 
 \noindent This is due to the fact that $[E_i]_0 = [E]_i + 
@@ -88,4 +88,99 @@ also described by the paper, which is given as follows :
 \end{align*}
 
 \noindent In these, $[FP]_{max}$ is the total concentration of 
-all the promoters.
+all the promoters. 
+\newpage
+The reaction with all the rate constants is given as below :
+
+\begin{center}
+    \includegraphics[scale=0.3]{img/eqn-rate.jpg}
+\end{center}
+
+\noindent The other constants are as follows :
+\begin{itemize}
+    \item $K_{\text{half}}$ \\ \indent Concentration of $[E_1]_{total}$ when reaction rate is half-maximum.
+    \item $[FP] + [BP] = [FP]_{\text{max}}$
+\end{itemize}
+
+\subsection*{Closed Loop Systems}
+Thus using the math done above, the rate equations are 
+as follows :
+
+\subsubsection*{DNA Cycle}
+\begin{align*}
+    \frac{d[FP]}{dt} &= K_{rel}([FP]_{max} - [FP]) - K_{auto}[E_1]_{total}[FP]\\
+    \frac{d[mRNA]}{dt} &= K_{pro}[FP] - K_d[mRNA]\\
+    \frac{d[E1]_{total}}{dt} &= K_{tran}[mRNA] - K_{allo}\frac{[X_l][E_1]_{total}}{K_{half} + [E_1]_{total}}
+\end{align*}
+
+\subsubsection*{Phosphorylation Cycle}
+\begin{align*}
+    \frac{d[X_i]}{dt} &= K_{i,1}[X_i][X_iE_i] + K_{i,2}[X_iE_i] + K_{i-1,3}[X_{i-1}E_{i-1}] - K_{i,1}[X_i][E_i]_0\\
+    \frac{d[X_iE_i]}{dt} &= -K_{i,1}[X_i][X_iE_i] - (K_{i,2} + K_{i,3})[X_iE_i] + K_{i,1}[X_i][E_i]_0
+\end{align*}
+
+\subsection*{Conclusion}
+In the above section, the system was properly defined and in 
+the next section, various analysis will be done.
+
+\section*{Analysis}
+This is analysis which is done under equilibrium and various 
+aspects such as robustness will be analysed.
+\subsection*{Robustness}
+The robustness of $X_l$ species is checked under both the 
+metabolism regulation mechanisms as discussed before. Robustness 
+can be examined by using the elasticity metric.
+\\\\
+A $[S]^*$ is defined, which is the concentration of given 
+species $S$ at equilibrium.
+
+\subsubsection{Elasticity Coefficient}
+Elasticity Coefficient ($\varepsilon$) is defined as :
+
+$$ \varepsilon = \frac{d \ln{[X_l]^*}}{d \ln[E_1]^*_{\text{total}}}$$
+
+\noindent Thus, the closer $\varepsilon$ is to 0, the more 
+robust the system is, as it will try to remain at equilibrium.
+
+\subsubsection*{Derevation}
+The deravative of the latent state variable 
+$[FP] + \frac{K_{rel}}{K_{pro}}[mRNA] + \frac{K_dK_{rel}}{K_{tran}K_{pro}}[E_1]_{total}$ 
+is as follows :
+
+\begin{align*}
+    &\frac{d}{dt} ([FP] + \frac{K_{rel}}{K_{pro}}[mRNA] + \frac{K_dK_{rel}}{K_{tran}K_{pro}}[E_1]_{total})\\
+    =&-\frac{K_dK{rel}K_{allo}}{K_{tran}K_{pro}} \frac{[X_l][E_1]_{total}}{K_{half}+[E_1]_{total}} + K_{rel}[FP]_{max} - K_{auto}[E_1]_{total}[FP]\\
+    =&-K_{gain}([X_l] - R - \frac{K_{half}[X_l]}{K_{half} + [E_1]_{total}} + \frac{K_{auto}}{K_{gain}}[E_1]_{total}[FP])
+\end{align*}
+
+\noindent In this, the defined constants are :
+\begin{itemize}
+    \item $K_{gain} = \frac{K_dK_{rel}K_{allo}}{K_{tran}K_{pro}}$
+    \item $R = \frac{K_{rel}[FP]_{max}}{K_{gain}}$
+\end{itemize}
+
+\noindent Thus, at equilibrium
+
+\begin{align*}
+    [X_l]^* &= (R - \frac{K_{auto}}{K_{gain}}[E_1]^*_{total}[FP]^*)\frac{K_{half}+[E_1]^*_{total}}{[E_1]^*_{total}}\\
+    &= R(\frac{K_{rel}}{K_{auto}[E_1]^*_{total} + K_{rel}})\frac{K_{half}+[E_1]^*_{total}}{[E_1]^*_{total}}
+\end{align*}
+
+\noindent Thus, elasticity coefficient is :
+
+\begin{equation*}
+    \varepsilon = -\frac{K_{auto}[E_1]^*_{total}}{K_{auto}[E_1]^*_{total} + K_{rel}} + \frac{K_{half}}{K_{half} + [E_1]^*_{total}}
+\end{equation*}
+
+\subsection*{Conclusion}
+Thus, it can be seen that two scenarios occur, which are as 
+follows :
+
+\begin{itemize}
+    \item $\varepsilon \approxeq 0$\\ \indent $K_{half} \ll [E_1]^*_{total} \ll \frac{K_{rel}}{K_{auto}}$
+    \item $\varepsilon \approxeq -1$\\ \indent $[E_1]^*_{total} \gg \max(K_{rel}/K_{auto},K_{half})$ \\ \indent $[E_1]^*_{total} \ll \min(K_{rel}/K_{auto},K_{half})$
+\end{itemize}
+
+\noindent This suggests that regulator is highly robust at 
+medium levels of $[E_1]^*_{total}$ and fragile at extreme levels 
+of it.
