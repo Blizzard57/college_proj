@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mpi.h>
+#include <time.h>
 
 void swap(int *a, int *b){
     int t = *a;
@@ -61,14 +62,17 @@ int main(int argc, char **argv)
     int *other;
     MPI_Status status;
 
+    FILE * file = NULL;
     int root_process = 0;
+    double time;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &num_proc);
     MPI_Comm_rank(MPI_COMM_WORLD, &id);
 
     if (id == root_process){
-        scanf("%d", &tot_num);
+        file = fopen(argv[1],"r");
+        fscanf(file,"%d", &tot_num);
 
         if (tot_num % num_proc != 0)
             chunk_size = tot_num / num_proc + 1;
@@ -77,9 +81,11 @@ int main(int argc, char **argv)
 
         data = (int *)calloc(num_proc * chunk_size,sizeof(int));
         for (int i = 0; i < tot_num; i++)
-            scanf("%d", &data[i]);
+            fscanf(file,"%d", &data[i]);
+        fclose(file);
     }
 
+    time = - MPI_Wtime();
     MPI_Bcast(&tot_num, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     if(tot_num % num_proc != 0) 
@@ -122,10 +128,15 @@ int main(int argc, char **argv)
         step *= 2;
     }
 
+    time += MPI_Wtime();
+
     if (id == root_process){
+        file = fopen(argv[2],"w");
         for (int i = 0; i < curr_size - 1; i++)
-            printf("%d ", chunk[i]);
-        printf("%d\n", chunk[curr_size - 1]);
+            fprintf(file,"%d ", chunk[i]);
+        fprintf(file,"%d\n", chunk[curr_size - 1]);
+        fclose(file);
+        printf("The time taken is : %f seconds.\n",time);
     }
 
     MPI_Finalize();

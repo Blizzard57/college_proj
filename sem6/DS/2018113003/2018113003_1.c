@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <mpi.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define max_number 100000
 
@@ -14,7 +15,9 @@ int main(int argc, char **argv){
     int start, end, avg_rows_per_process,start_num;
     int tot_num, num_procs, tot_send, tot_recv;
 
+    FILE * file = NULL;
     root_process = 0;
+    double time;
 
     ierr = MPI_Init(&argc, &argv);
     ierr = MPI_Comm_rank(MPI_COMM_WORLD, &my_id);
@@ -22,12 +25,15 @@ int main(int argc, char **argv){
 
     int i;
     if (my_id == root_process){
-        scanf("%i", &tot_num);
+        file = fopen(argv[1],"r");
+        fscanf(file,"%i", &tot_num);
+        fclose(file);
 
         if (tot_num > max_number){
             printf("Numbers exceed the given limit.\n");
             exit(1);
         }
+        time = - MPI_Wtime();
 
         avg_rows_per_process = tot_num / num_procs;
         if(avg_rows_per_process < 1)
@@ -63,7 +69,12 @@ int main(int argc, char **argv){
             sum += partial_sum;
         }
 
-        printf("%Lf\n", sum);
+        time += MPI_Wtime();
+
+        file = fopen(argv[2],"w");
+        fprintf(file,"%Lf\n", sum);
+
+        printf("The time taken is : %f seconds.\n",time);
     }
 
     else{
