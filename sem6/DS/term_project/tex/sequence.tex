@@ -1,0 +1,109 @@
+\chapter{Sequential RNG}
+In this section, the most common sequential RNGs are 
+introduced. This is required as RNGs that work in parallel 
+are extensions of SRNGs, and understanding a simpler system 
+before introducing a N processor generality wil be the 
+logical and simpler way to understand PRNGs.
+
+\section{Linear Congruential Generators}
+Linear Congruential Generators, abbreviated as LCGs are 
+defined as follows:
+
+\begin{definition}
+    fFor a sequence of numbers $X_1,X_2, \dots, X_n $ with 
+    $n^{th}$ number being $X_n$, 
+    the sequence is :\\
+    \begin{equation*}
+        X_n = aX_{n-1} + c \mod m
+    \end{equation*}
+
+    \noindent Where $a,c,m$ are parameters.
+\end{definition}
+
+\noindent This is one of the most common RNG, which has been 
+used for a long time. One advantage that this construct has 
+is that it is very quick in generation when $m$ is chosen 
+to be a power of 2.
+\\\\
+The disadvantage of the system are that it produces highly 
+correlated lower order bits for intervals that are power of 
+2. It also has the issue that the modulus cannot be greater 
+than the precision fo the machine.
+\\\\
+One modification that is commonly used for the algorithm is 
+generalization of LCG, known as Multiple Recursive Generators 
+(MRGs), which are defined as:
+
+\begin{definition}
+    fFor a sequence of numbers $X_1,X_2, \dots, X_n $ with 
+    $n^{th}$ number being $X_n$, 
+    the sequence is :\\
+    \begin{equation*}
+        X_n = \sum_{i=1}^{n-k} a_iX_{i} + c \mod m
+    \end{equation*}
+
+    \noindent Where $a_i,c,m,k$ are parameters.
+\end{definition}
+
+\noindent This is a recursion based some of the previous 
+values rather than just the last one. The benefit of this 
+construct is that the randomness of the system increases, 
+lesser the $k$ is, on the downside that it takes a longer 
+time to compute.
+
+\section{Lagged-Fibonacci Generators}
+Lagged-Fibonacci Generators, abbreviated as LFGs are 
+defined as follows:
+
+\begin{definition}
+    fFor a sequence of numbers $X_1,X_2, \dots, X_n $ with 
+    $n^{th}$ number being $X_n$, 
+    the sequence is :\\
+    \begin{equation*}
+        X_n = X_{n-p} \odot X_{n-q} \mod m
+    \end{equation*}
+
+    \noindent Where $p,q,m$ are parameters and $\odot$ is 
+    any binary operation (Add, Multiply ,XOR).
+\end{definition}
+
+\noindent From the formulation itself it can be seen that 
+the usage of the construct requires $p (p > q)$ initial values 
+to be already present.
+\\\\
+The binary operation can be selected by the user and it has 
+been proven that multiply operation provides the most amount 
+of randomness followed by the addition operation and lastly 
+followed by XOR operation.
+\\\\
+The major benifit of the construct is that it is extremely 
+quick in computing the value. Its period can also be made 
+arbitrarily wide by just changing the value of p.
+
+\section{Combined Generators}
+This is a system which just combines two psuedo 
+random sequences, which in turn gives a random sequence 
+which would have a better quality of randomness. 
+Hence, the formulation is as follows :
+
+\begin{definition}
+    fFor two sequences $X_n$ and $Y_n$, making a combined 
+    sequence $S_n$ as follows:\\
+    \begin{equation*}
+        S_n = X_{n} + Y_{n} \mod m
+    \end{equation*}
+
+    \noindent Where $m$ is the parameter.
+\end{definition}
+
+\section{Conclusion}
+It is visible that psuedo random techniques used are not 
+that complicated, but rather tricky. The combination of 
+the use of recursion and modulo provides us with psuedo 
+random numbers. 
+\\\\
+The improvement in quality can be performed 
+by performing binary operations on these sequences, which 
+if having different parameters would have different patterns 
+thus obscuring the pattern even more, making the operated 
+sequence even more random.

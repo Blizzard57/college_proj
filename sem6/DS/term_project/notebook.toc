@@ -1,2 +1,12 @@
 \babel@toc {english}{}
 \contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Importance of Randomness}{3}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Cryptography}{3}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Monte Carlo}{4}{subsection.1.1.2}%
+\contentsline {section}{\numberline {1.2}Pseudorandomness}{5}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Sequential RNG}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Linear Congruential Generators}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Lagged-Fibonacci Generators}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Combined Generators}{7}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Conclusion}{8}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Parallel RNG}{9}{chapter.3}%
