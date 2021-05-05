@@ -1,5 +1,94 @@
 \chapter{Parallel RNG}
 Parallel algorithms for RNGs is just a generalization or 
-an extension of the sequential RNGs. Two main techniques are 
-used for such generalization, first is splitting and the other 
-being parametrization.
+an extension of the sequential RNGs. The main technique 
+used for such generalization is splitting.
+
+\section{Splitting Techniques}
+These algorithms work on the principle that the elements of 
+sequential RNG must be distributed in some way among all 
+the processors.
+\\\\
+These systems create a single stream of random numbers 
+much more quickly than a single processor system, but as 
+the underlying formula for generation of random numbers 
+remain the same, the quality of random numbers is not 
+expected to increase.
+
+\subsection{Sequence Splitting}
+This is the simplest, where N different processors are given 
+the task to generate P random numbers, each processor giving 
+disjoint sequences.
+\\\\
+The only possible issue with that even though the numbers 
+generated are disjoint, they might still have some 
+correlation and merging the sequence might make the 
+quality of randomness decrease.
+
+\subsubsection{Code}
+\lstinputlisting[basicstyle=Large,style=py]{code/seq_split_copy.py}
+
+\noindent \LaTeX is not allowing @ in the line ray.remote, 
+which should be present. Working code provided in Code folder.
+
+\subsection{Random Tree Method}
+In the random tree method, two LCGs are used in congruence 
+to create random sequences defined as :
+
+\begin{align*}
+    L_{k+1} &= a_L L_k \mod m\\
+    R_{k+1} &= a_R R_k \mod m
+\end{align*}
+
+\noindent In this, the left ones are used to generate new 
+sequences whereas the right ones are used to generate the 
+random numbers.
+\\\\
+The benefits of the method are that new random
+sequences are produced in a reproducible and noncentralized 
+fashion. An example of such usefulness is when dynamic 
+amount of child process require a start number to create 
+a random sequence, so the parent can just pass on the 
+$L_k$ as the parameter, while the child uses $R_k$ for 
+computation.
+\\\\
+The major downside is that the quality of randomness has not 
+increased, but rather now unknown correlations between 
+different $R_k$ sequences can exist.
+
+\subsubsection{Code}
+\lstinputlisting[basicstyle=Large,style=py]{code/random_tree_copy.py}
+
+\subsection{Leapfrog Method}
+The leapfrog method is a variant of the Random Tree method 
+specifically for systems with fixed amount of generators. 
+In this, the constant for $R_k$ is tweaked in the following 
+manner :
+\begin{align*}
+    L_{k+1} &= a_L L_k \mod m\\
+    R_{k+1} &= a_L^n R_k \mod m
+\end{align*}
+
+\noindent The benefit of this method is that the sequence 
+will not overlap for a $P/n$ period, where $P$ is the period 
+of L sequence and n is the number of subsequences required. 
+The disadvantage being that the number of subsequences 
+required must be known.
+
+\subsubsection{Code}
+\lstinputlisting[basicstyle=Large,style=py]{code/leapfrog_copy.py}
+
+\subsection{Modified Leapfrog}
+One final method is known as modified leapfrog, which is a 
+small modification on leapfrog in the case where the number 
+of random numbers in a sequence are known but not the number 
+of sequences. It is defined as follows :
+\begin{align*}
+    L_{k+1} &= a_R^n L_k \mod m\\
+    R_{k+1} &= a_R R_k \mod m
+\end{align*}
+
+\noindent It has the same advantages and disadvantages of 
+the standard leapfrog method.
+
+\subsubsection{Code}
+\lstinputlisting[basicstyle=Large,style=py]{code/mod_leapfrog_copy.py}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.11.24)  30 APR 2021 17:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.11.24)  30 APR 2021 23:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -873,7 +873,7 @@ LaTeX Info: Redefining \nameref on input line 249.
 \@outlinefile=\write6
 \openout6 = `notebook.out'.
 
-<img/iiit-logo.jpeg, id=75, 200.75pt x 200.75pt>
+<img/iiit-logo.jpeg, id=127, 200.75pt x 200.75pt>
 File: img/iiit-logo.jpeg Graphic file (type jpg)
 <use img/iiit-logo.jpeg>
 Package pdftex.def Info: img/iiit-logo.jpeg  used on input line 257.
@@ -923,7 +923,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--39
 [3
 
 ]
-<img/abe_comm.png, id=112, 571.38469pt x 322.20375pt>
+<img/abe_comm.png, id=177, 571.38469pt x 322.20375pt>
 File: img/abe_comm.png Graphic file (type png)
 <use img/abe_comm.png>
 Package pdftex.def Info: img/abe_comm.png  used on input line 40.
@@ -963,7 +963,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 86--93
 
  []
 
-<img/prng_gen.png, id=133, 358.48782pt x 121.64258pt>
+<img/prng_gen.png, id=199, 358.48782pt x 121.64258pt>
 File: img/prng_gen.png Graphic file (type png)
 <use img/prng_gen.png>
 Package pdftex.def Info: img/prng_gen.png  used on input line 95.
@@ -996,65 +996,103 @@ Underfull \hbox (badness 10000) in paragraph at lines 38--41
 
 ]
 Package mdframed Info: Not enough space on this page on input line 46.
-Package mdframed Info: mdframed works in twoside mode on input line 59.
+ (/home/blizzard/Assignments/sem6/DS/term_project/code/lcg.py)
+Package mdframed Info: mdframed works in twoside mode on input line 62.
 
-Underfull \hbox (badness 10000) in paragraph at lines 59--62
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 70--82
+Underfull \hbox (badness 10000) in paragraph at lines 62--65
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 70--82
+Underfull \hbox (badness 10000) in paragraph at lines 73--85
 
  []
 
-Package mdframed Info: mdframed works in twoside mode on input line 90.
 
-Underfull \hbox (badness 10000) in paragraph at lines 90--92
+Underfull \hbox (badness 10000) in paragraph at lines 73--85
 
  []
 
-[7]
-Package mdframed Info: Not enough space on this page on input line 97.
+[7] (/home/blizzard/Assignments/sem6/DS/term_project/code/lfg.py)
+Package mdframed Info: mdframed works in twoside mode on input line 96.
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+
+ []
+
 ) (/home/blizzard/Assignments/sem6/DS/term_project/tex/parallel.tex
-Underfull \hbox (badness 10000) in paragraph at lines 100--1
+Underfull \hbox (badness 10000) in paragraph at lines 106--1
 
  []
 
-[8]
+[8] [9]
 Chapter 3.
-) [9
 
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 276.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 276.
+Underfull \hbox (badness 10000) in paragraph at lines 7--16
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--26
+
+ []
+
+(/home/blizzard/Assignments/sem6/DS/term_project/code/seq_split_copy.py [10
+
+])
+Underfull \hbox (badness 10000) in paragraph at lines 42--57
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--57
+
+ []
+
+(/home/blizzard/Assignments/sem6/DS/term_project/code/random_tree_copy.py [11]) (/home/blizzard/Assignments/sem6/DS/term_project/code/leapfrog_copy.py [12]) (/home/blizzard/Assignments/sem6/DS/term_project/code/mod_leapfrog_copy.py [13])) (/home/blizzard/Assignments/sem6/DS/term_project/tex/result.tex [14]
+Chapter 4.
+
+Underfull \hbox (badness 10000) in paragraph at lines 7--15
+
+ []
+
+) (/home/blizzard/Assignments/sem6/DS/term_project/tex/appendix.tex
+Underfull \hbox (badness 10000) in paragraph at lines 40--1
+
+ []
+
+[15
+
+] [16]
+Appendix A.
+(/home/blizzard/Assignments/sem6/DS/term_project/code/blocking_test_copy.py [17
+
+])) [18]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 278.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 278.
  (/home/blizzard/Assignments/sem6/DS/term_project/notebook.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 276.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 276.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 278.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 278.
 Package rerunfilecheck Info: File `notebook.out' has not changed.
-(rerunfilecheck)             Checksum: 9341038F297DB722D4DCB3B7B623F180;676.
+(rerunfilecheck)             Checksum: E3C9177C34FFE2875216CFFC8F326ED1;1486.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 26272 strings out of 483107
- 496233 string characters out of 5964629
- 997501 words of memory out of 5000000
- 40716 multiletter control sequences out of 15000+600000
+ 26642 strings out of 483107
+ 502265 string characters out of 5964629
+ 1041517 words of memory out of 5000000
+ 40786 multiletter control sequences out of 15000+600000
  539543 words of font info for 53 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  68i,10n,99p,878b,2213s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/blizzard/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on /home/blizzard/Assignments/sem6/DS/term_project/notebook.pdf (9 pages, 220982 bytes).
+Output written on /home/blizzard/Assignments/sem6/DS/term_project/notebook.pdf (18 pages, 257424 bytes).
 PDF statistics:
- 245 PDF objects out of 1000 (max. 8388607)
- 195 compressed objects within 2 object streams
- 53 named destinations out of 1000 (max. 500000)
- 212 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 659 PDF objects out of 1000 (max. 8388607)
+ 596 compressed objects within 6 object streams
+ 327 named destinations out of 1000 (max. 500000)
+ 316 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,43 @@
+\chapter{Compare}
+Now all the algorithms will be compared in two parameters, 
+the quality of randomness and the speed with which it is 
+generated. The comparison algorithms are given in the appendix.
+
+\section{Quality of Randomness}
+The quality of randomness can be checked in many ways, but in 
+this report, the randomness is checked by using the blocking 
+test.
+\\\\
+In this, we use the fact that sum of independant variables 
+asymptotically approaches normal distribution. Therefore, 
+the amount of deviation from normal distribution is the 
+measure of randomness.
+
+\section{Results}
+
+\begin{center}
+    \begin{tabular}{||c c c c||} 
+    \hline
+    Algorithm & Mean & Variance & Time \\ [0.5ex] 
+    \hline\hline
+    Leapfrog & 11.42 & 9.90 & 0.81\\ 
+    \hline
+    Random Tree & 10.86 & 8.90 & 0.88 \\
+    \hline
+    Modified Leapfrog & 11.33 & 10.40 & 0.84 \\
+    \hline
+    Sequence Splitting & 9.46 & 6.91 & 0.52 \\
+    \hline
+   \end{tabular}
+   \end{center}
+
+\noindent From these results it is clear that my version 
+of these algorithms are not as precise as I would like them to 
+be but are close enough to the normal distribution value to 
+be considered good enough.
+
+\section{Video Link}
+The video explaining the report is uploaded on Youtube and can 
+be opened using the following link :
+\\\\
+https://youtu.be/j8ZJhVhkJfk
